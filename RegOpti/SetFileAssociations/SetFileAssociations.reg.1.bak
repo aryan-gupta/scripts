@@ -1,0 +1,959 @@
+Windows Registry Editor Version 5.00
+
+; ====================================== DELETE bak =========================================
+[-HKEY_LOCAL_MACHINE\Software\Classes\Applications\bak_FILE.bat]
+[-HKEY_CURRENT_USER\Software\Classes\Applications\bak_FILE.bat]
+[-HKEY_LOCAL_MACHINE\Software\Classes\.bak]
+[-HKEY_CURRENT_USER\Software\Classes\.bak]
+[-HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\FileExts\.bak]
+; =================================================================================================
+
+; ====================================== DELETE bin =========================================
+[-HKEY_LOCAL_MACHINE\Software\Classes\Applications\bin_FILE.bat]
+[-HKEY_CURRENT_USER\Software\Classes\Applications\bin_FILE.bat]
+[-HKEY_LOCAL_MACHINE\Software\Classes\.bin]
+[-HKEY_CURRENT_USER\Software\Classes\.bin]
+[-HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\FileExts\.bin]
+; =================================================================================================
+
+; ====================================== DELETE class =========================================
+[-HKEY_LOCAL_MACHINE\Software\Classes\Applications\class_FILE.bat]
+[-HKEY_CURRENT_USER\Software\Classes\Applications\class_FILE.bat]
+[-HKEY_LOCAL_MACHINE\Software\Classes\.class]
+[-HKEY_CURRENT_USER\Software\Classes\.class]
+[-HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\FileExts\.class]
+; =================================================================================================
+
+; ====================================== DELETE cpp =========================================
+[-HKEY_LOCAL_MACHINE\Software\Classes\Applications\cpp_FILE.bat]
+[-HKEY_CURRENT_USER\Software\Classes\Applications\cpp_FILE.bat]
+[-HKEY_LOCAL_MACHINE\Software\Classes\.cpp]
+[-HKEY_CURRENT_USER\Software\Classes\.cpp]
+[-HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\FileExts\.cpp]
+; =================================================================================================
+
+; ====================================== DELETE css =========================================
+[-HKEY_LOCAL_MACHINE\Software\Classes\Applications\css_FILE.bat]
+[-HKEY_CURRENT_USER\Software\Classes\Applications\css_FILE.bat]
+[-HKEY_LOCAL_MACHINE\Software\Classes\.css]
+[-HKEY_CURRENT_USER\Software\Classes\.css]
+[-HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\FileExts\.css]
+; =================================================================================================
+
+; ====================================== DELETE dat =========================================
+[-HKEY_LOCAL_MACHINE\Software\Classes\Applications\dat_FILE.bat]
+[-HKEY_CURRENT_USER\Software\Classes\Applications\dat_FILE.bat]
+[-HKEY_LOCAL_MACHINE\Software\Classes\.dat]
+[-HKEY_CURRENT_USER\Software\Classes\.dat]
+[-HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\FileExts\.dat]
+; =================================================================================================
+
+; ====================================== DELETE file =========================================
+[-HKEY_LOCAL_MACHINE\Software\Classes\Applications\file_FILE.bat]
+[-HKEY_CURRENT_USER\Software\Classes\Applications\file_FILE.bat]
+[-HKEY_LOCAL_MACHINE\Software\Classes\.file]
+[-HKEY_CURRENT_USER\Software\Classes\.file]
+[-HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\FileExts\.file]
+; =================================================================================================
+
+; ====================================== DELETE h =========================================
+[-HKEY_LOCAL_MACHINE\Software\Classes\Applications\h_FILE.bat]
+[-HKEY_CURRENT_USER\Software\Classes\Applications\h_FILE.bat]
+[-HKEY_LOCAL_MACHINE\Software\Classes\.h]
+[-HKEY_CURRENT_USER\Software\Classes\.h]
+[-HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\FileExts\.h]
+; =================================================================================================
+
+; ====================================== DELETE inf =========================================
+[-HKEY_LOCAL_MACHINE\Software\Classes\Applications\inf_FILE.bat]
+[-HKEY_CURRENT_USER\Software\Classes\Applications\inf_FILE.bat]
+[-HKEY_LOCAL_MACHINE\Software\Classes\.inf]
+[-HKEY_CURRENT_USER\Software\Classes\.inf]
+[-HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\FileExts\.inf]
+; =================================================================================================
+
+; ====================================== DELETE ini =========================================
+[-HKEY_LOCAL_MACHINE\Software\Classes\Applications\ini_FILE.bat]
+[-HKEY_CURRENT_USER\Software\Classes\Applications\ini_FILE.bat]
+[-HKEY_LOCAL_MACHINE\Software\Classes\.ini]
+[-HKEY_CURRENT_USER\Software\Classes\.ini]
+[-HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\FileExts\.ini]
+; =================================================================================================
+
+; ====================================== DELETE java =========================================
+[-HKEY_LOCAL_MACHINE\Software\Classes\Applications\java_FILE.bat]
+[-HKEY_CURRENT_USER\Software\Classes\Applications\java_FILE.bat]
+[-HKEY_LOCAL_MACHINE\Software\Classes\.java]
+[-HKEY_CURRENT_USER\Software\Classes\.java]
+[-HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\FileExts\.java]
+; =================================================================================================
+
+; ====================================== DELETE js =========================================
+[-HKEY_LOCAL_MACHINE\Software\Classes\Applications\js_FILE.bat]
+[-HKEY_CURRENT_USER\Software\Classes\Applications\js_FILE.bat]
+[-HKEY_LOCAL_MACHINE\Software\Classes\.js]
+[-HKEY_CURRENT_USER\Software\Classes\.js]
+[-HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\FileExts\.js]
+; =================================================================================================
+
+; ====================================== DELETE o =========================================
+[-HKEY_LOCAL_MACHINE\Software\Classes\Applications\o_FILE.bat]
+[-HKEY_CURRENT_USER\Software\Classes\Applications\o_FILE.bat]
+[-HKEY_LOCAL_MACHINE\Software\Classes\.o]
+[-HKEY_CURRENT_USER\Software\Classes\.o]
+[-HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\FileExts\.o]
+; =================================================================================================
+
+; ====================================== DELETE php =========================================
+[-HKEY_LOCAL_MACHINE\Software\Classes\Applications\php_FILE.bat]
+[-HKEY_CURRENT_USER\Software\Classes\Applications\php_FILE.bat]
+[-HKEY_LOCAL_MACHINE\Software\Classes\.php]
+[-HKEY_CURRENT_USER\Software\Classes\.php]
+[-HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\FileExts\.php]
+; =================================================================================================
+
+; ====================================== DELETE py =========================================
+[-HKEY_LOCAL_MACHINE\Software\Classes\Applications\py_FILE.bat]
+[-HKEY_CURRENT_USER\Software\Classes\Applications\py_FILE.bat]
+[-HKEY_LOCAL_MACHINE\Software\Classes\.py]
+[-HKEY_CURRENT_USER\Software\Classes\.py]
+[-HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\FileExts\.py]
+; =================================================================================================
+
+; ====================================== DELETE tmp =========================================
+[-HKEY_LOCAL_MACHINE\Software\Classes\Applications\tmp_FILE.bat]
+[-HKEY_CURRENT_USER\Software\Classes\Applications\tmp_FILE.bat]
+[-HKEY_LOCAL_MACHINE\Software\Classes\.tmp]
+[-HKEY_CURRENT_USER\Software\Classes\.tmp]
+[-HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\FileExts\.tmp]
+; =================================================================================================
+
+; ====================================== DELETE txt =========================================
+[-HKEY_LOCAL_MACHINE\Software\Classes\Applications\txt_FILE.bat]
+[-HKEY_CURRENT_USER\Software\Classes\Applications\txt_FILE.bat]
+[-HKEY_LOCAL_MACHINE\Software\Classes\.txt]
+[-HKEY_CURRENT_USER\Software\Classes\.txt]
+[-HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\FileExts\.txt]
+; =================================================================================================
+
+; ====================================== DELETE rc =========================================
+[-HKEY_LOCAL_MACHINE\Software\Classes\Applications\rc_FILE.bat]
+[-HKEY_CURRENT_USER\Software\Classes\Applications\rc_FILE.bat]
+[-HKEY_LOCAL_MACHINE\Software\Classes\.rc]
+[-HKEY_CURRENT_USER\Software\Classes\.rc]
+[-HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\FileExts\.rc]
+; =================================================================================================
+
+; ====================================== DELETE xml =========================================
+[-HKEY_LOCAL_MACHINE\Software\Classes\Applications\xml_FILE.bat]
+[-HKEY_CURRENT_USER\Software\Classes\Applications\xml_FILE.bat]
+[-HKEY_LOCAL_MACHINE\Software\Classes\.xml]
+[-HKEY_CURRENT_USER\Software\Classes\.xml]
+[-HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\FileExts\.xml]
+; =================================================================================================
+
+; ====================================== DELETE mkv =========================================
+[-HKEY_LOCAL_MACHINE\Software\Classes\Applications\mkv_FILE.bat]
+[-HKEY_CURRENT_USER\Software\Classes\Applications\mkv_FILE.bat]
+[-HKEY_LOCAL_MACHINE\Software\Classes\.mkv]
+[-HKEY_CURRENT_USER\Software\Classes\.mkv]
+[-HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\FileExts\.mkv]
+; =================================================================================================
+
+; ====================================== DELETE mov =========================================
+[-HKEY_LOCAL_MACHINE\Software\Classes\Applications\mov_FILE.bat]
+[-HKEY_CURRENT_USER\Software\Classes\Applications\mov_FILE.bat]
+[-HKEY_LOCAL_MACHINE\Software\Classes\.mov]
+[-HKEY_CURRENT_USER\Software\Classes\.mov]
+[-HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\FileExts\.mov]
+; =================================================================================================
+
+; ====================================== DELETE mp3 =========================================
+[-HKEY_LOCAL_MACHINE\Software\Classes\Applications\mp3_FILE.bat]
+[-HKEY_CURRENT_USER\Software\Classes\Applications\mp3_FILE.bat]
+[-HKEY_LOCAL_MACHINE\Software\Classes\.mp3]
+[-HKEY_CURRENT_USER\Software\Classes\.mp3]
+[-HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\FileExts\.mp3]
+; =================================================================================================
+
+; ====================================== DELETE mp4 =========================================
+[-HKEY_LOCAL_MACHINE\Software\Classes\Applications\mp4_FILE.bat]
+[-HKEY_CURRENT_USER\Software\Classes\Applications\mp4_FILE.bat]
+[-HKEY_LOCAL_MACHINE\Software\Classes\.mp4]
+[-HKEY_CURRENT_USER\Software\Classes\.mp4]
+[-HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\FileExts\.mp4]
+; =================================================================================================
+
+; ====================================== DELETE mpeg =========================================
+[-HKEY_LOCAL_MACHINE\Software\Classes\Applications\mpeg_FILE.bat]
+[-HKEY_CURRENT_USER\Software\Classes\Applications\mpeg_FILE.bat]
+[-HKEY_LOCAL_MACHINE\Software\Classes\.mpeg]
+[-HKEY_CURRENT_USER\Software\Classes\.mpeg]
+[-HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\FileExts\.mpeg]
+; =================================================================================================
+
+; ====================================== DELETE flac =========================================
+[-HKEY_LOCAL_MACHINE\Software\Classes\Applications\flac_FILE.bat]
+[-HKEY_CURRENT_USER\Software\Classes\Applications\flac_FILE.bat]
+[-HKEY_LOCAL_MACHINE\Software\Classes\.flac]
+[-HKEY_CURRENT_USER\Software\Classes\.flac]
+[-HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\FileExts\.flac]
+; =================================================================================================
+
+; ====================================== DELETE flv =========================================
+[-HKEY_LOCAL_MACHINE\Software\Classes\Applications\flv_FILE.bat]
+[-HKEY_CURRENT_USER\Software\Classes\Applications\flv_FILE.bat]
+[-HKEY_LOCAL_MACHINE\Software\Classes\.flv]
+[-HKEY_CURRENT_USER\Software\Classes\.flv]
+[-HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\FileExts\.flv]
+; =================================================================================================
+
+; ====================================== DELETE avi =========================================
+[-HKEY_LOCAL_MACHINE\Software\Classes\Applications\avi_FILE.bat]
+[-HKEY_CURRENT_USER\Software\Classes\Applications\avi_FILE.bat]
+[-HKEY_LOCAL_MACHINE\Software\Classes\.avi]
+[-HKEY_CURRENT_USER\Software\Classes\.avi]
+[-HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\FileExts\.avi]
+; =================================================================================================
+
+; ====================================== DELETE swf =========================================
+[-HKEY_LOCAL_MACHINE\Software\Classes\Applications\swf_FILE.bat]
+[-HKEY_CURRENT_USER\Software\Classes\Applications\swf_FILE.bat]
+[-HKEY_LOCAL_MACHINE\Software\Classes\.swf]
+[-HKEY_CURRENT_USER\Software\Classes\.swf]
+[-HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\FileExts\.swf]
+; =================================================================================================
+
+; ====================================== DELETE wav =========================================
+[-HKEY_LOCAL_MACHINE\Software\Classes\Applications\wav_FILE.bat]
+[-HKEY_CURRENT_USER\Software\Classes\Applications\wav_FILE.bat]
+[-HKEY_LOCAL_MACHINE\Software\Classes\.wav]
+[-HKEY_CURRENT_USER\Software\Classes\.wav]
+[-HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\FileExts\.wav]
+; =================================================================================================
+
+; ====================================== DELETE rar =========================================
+[-HKEY_LOCAL_MACHINE\Software\Classes\Applications\rar_FILE.bat]
+[-HKEY_CURRENT_USER\Software\Classes\Applications\rar_FILE.bat]
+[-HKEY_LOCAL_MACHINE\Software\Classes\.rar]
+[-HKEY_CURRENT_USER\Software\Classes\.rar]
+[-HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\FileExts\.rar]
+; =================================================================================================
+
+; ====================================== DELETE 7z =========================================
+[-HKEY_LOCAL_MACHINE\Software\Classes\Applications\7z_FILE.bat]
+[-HKEY_CURRENT_USER\Software\Classes\Applications\7z_FILE.bat]
+[-HKEY_LOCAL_MACHINE\Software\Classes\.7z]
+[-HKEY_CURRENT_USER\Software\Classes\.7z]
+[-HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\FileExts\.7z]
+; =================================================================================================
+
+; ====================================== DELETE tar.gz =========================================
+[-HKEY_LOCAL_MACHINE\Software\Classes\Applications\tar.gz_FILE.bat]
+[-HKEY_CURRENT_USER\Software\Classes\Applications\tar.gz_FILE.bat]
+[-HKEY_LOCAL_MACHINE\Software\Classes\.tar.gz]
+[-HKEY_CURRENT_USER\Software\Classes\.tar.gz]
+[-HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\FileExts\.tar.gz]
+; =================================================================================================
+
+; ====================================== DELETE gz =========================================
+[-HKEY_LOCAL_MACHINE\Software\Classes\Applications\gz_FILE.bat]
+[-HKEY_CURRENT_USER\Software\Classes\Applications\gz_FILE.bat]
+[-HKEY_LOCAL_MACHINE\Software\Classes\.gz]
+[-HKEY_CURRENT_USER\Software\Classes\.gz]
+[-HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\FileExts\.gz]
+; =================================================================================================
+
+; ====================================== DELETE zip =========================================
+[-HKEY_LOCAL_MACHINE\Software\Classes\Applications\zip_FILE.bat]
+[-HKEY_CURRENT_USER\Software\Classes\Applications\zip_FILE.bat]
+[-HKEY_LOCAL_MACHINE\Software\Classes\.zip]
+[-HKEY_CURRENT_USER\Software\Classes\.zip]
+[-HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\FileExts\.zip]
+; =================================================================================================
+
+; ====================================== DELETE html =========================================
+; [-HKEY_LOCAL_MACHINE\Software\Classes\Applications\html_FILE.bat]
+; [-HKEY_CURRENT_USER\Software\Classes\Applications\html_FILE.bat]
+; [-HKEY_LOCAL_MACHINE\Software\Classes\.html]
+; [-HKEY_CURRENT_USER\Software\Classes\.html]
+; [-HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\FileExts\.html]
+; =================================================================================================
+
+; ====================================== DELETE pdf =========================================
+; [-HKEY_LOCAL_MACHINE\Software\Classes\Applications\pdf_FILE.bat]
+; [-HKEY_CURRENT_USER\Software\Classes\Applications\pdf_FILE.bat]
+; [-HKEY_LOCAL_MACHINE\Software\Classes\.pdf]
+; [-HKEY_CURRENT_USER\Software\Classes\.pdf]
+; [-HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\FileExts\.pdf]
+; =================================================================================================
+
+; ====================================== DELETE bmp =========================================
+[-HKEY_LOCAL_MACHINE\Software\Classes\Applications\bmp_FILE.bat]
+[-HKEY_CURRENT_USER\Software\Classes\Applications\bmp_FILE.bat]
+[-HKEY_LOCAL_MACHINE\Software\Classes\.bmp]
+[-HKEY_CURRENT_USER\Software\Classes\.bmp]
+[-HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\FileExts\.bmp]
+; =================================================================================================
+
+; ====================================== DELETE png =========================================
+[-HKEY_LOCAL_MACHINE\Software\Classes\Applications\png_FILE.bat]
+[-HKEY_CURRENT_USER\Software\Classes\Applications\png_FILE.bat]
+[-HKEY_LOCAL_MACHINE\Software\Classes\.png]
+[-HKEY_CURRENT_USER\Software\Classes\.png]
+[-HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\FileExts\.png]
+; =================================================================================================
+
+; ====================================== DELETE jpg =========================================
+[-HKEY_LOCAL_MACHINE\Software\Classes\Applications\jpg_FILE.bat]
+[-HKEY_CURRENT_USER\Software\Classes\Applications\jpg_FILE.bat]
+[-HKEY_LOCAL_MACHINE\Software\Classes\.jpg]
+[-HKEY_CURRENT_USER\Software\Classes\.jpg]
+[-HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\FileExts\.jpg]
+; =================================================================================================
+
+; ====================================== DELETE gif =========================================
+[-HKEY_LOCAL_MACHINE\Software\Classes\Applications\gif_FILE.bat]
+[-HKEY_CURRENT_USER\Software\Classes\Applications\gif_FILE.bat]
+[-HKEY_LOCAL_MACHINE\Software\Classes\.gif]
+[-HKEY_CURRENT_USER\Software\Classes\.gif]
+[-HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\FileExts\.gif]
+; =================================================================================================
+
+; ========================================= bak ============================================
+
+[HKEY_CURRENT_USER\Software\Classes\Applications\bak_FILE.bat]
+@="Backup File"
+"FriendlyTypeName"="Backup File"
+[HKEY_CLASSES_ROOT\Applications\bak_FILE.bat\DefaultIcon]
+@="C:\\Windows\\personal.ico\\bak.ico,0"
+[HKEY_CLASSES_ROOT\Applications\bak_FILE.bat\shell\open\command]
+@="\"C:\\Program Files (Portable)\\Notepad++\\notepad++.exe\" \"%1\""
+
+[HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\FileExts\.bak\OpenWithProgids]
+"Applications\\bak_FILE.bat"=hex(0):
+; =================================================================================================
+
+
+
+; ========================================= bin ============================================
+
+[HKEY_CURRENT_USER\Software\Classes\Applications\bin_FILE.bat]
+@="Generic Binary File"
+"FriendlyTypeName"="Generic Binary File"
+[HKEY_CLASSES_ROOT\Applications\bin_FILE.bat\DefaultIcon]
+@="C:\\Windows\\personal.ico\\bin.ico,0"
+[HKEY_CLASSES_ROOT\Applications\bin_FILE.bat\shell\open\command]
+@="\"C:\\Program Files (Portable)\\Notepad++\\notepad++.exe\" \"%1\""
+
+[HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\FileExts\.bin\OpenWithProgids]
+"Applications\\bin_FILE.bat"=hex(0):
+; =================================================================================================
+
+
+
+; ========================================= class ============================================
+
+[HKEY_CURRENT_USER\Software\Classes\Applications\class_FILE.bat]
+@="Java Class File"
+"FriendlyTypeName"="Java Class File"
+[HKEY_CLASSES_ROOT\Applications\class_FILE.bat\DefaultIcon]
+@="C:\\Windows\\personal.ico\\class.ico,0"
+[HKEY_CLASSES_ROOT\Applications\class_FILE.bat\shell\open\command]
+@="\"C:\\Program Files (Portable)\\Notepad++\\notepad++.exe\" \"%1\""
+
+[HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\FileExts\.class\OpenWithProgids]
+"Applications\\class_FILE.bat"=hex(0):
+; =================================================================================================
+
+
+
+; ========================================= cpp ============================================
+
+[HKEY_CURRENT_USER\Software\Classes\Applications\cpp_FILE.bat]
+@="C++ Source Code File"
+"FriendlyTypeName"="C++ Source Code File"
+[HKEY_CLASSES_ROOT\Applications\cpp_FILE.bat\DefaultIcon]
+@="C:\\Windows\\personal.ico\\cpp.ico,0"
+[HKEY_CLASSES_ROOT\Applications\cpp_FILE.bat\shell\open\command]
+@="\"C:\\Program Files (Portable)\\Notepad++\\notepad++.exe\" \"%1\""
+
+[HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\FileExts\.cpp\OpenWithProgids]
+"Applications\\cpp_FILE.bat"=hex(0):
+; =================================================================================================
+
+
+
+; ========================================= css ============================================
+
+[HKEY_CURRENT_USER\Software\Classes\Applications\css_FILE.bat]
+@="Cascading Style Sheet File"
+"FriendlyTypeName"="Cascading Style Sheet File"
+[HKEY_CLASSES_ROOT\Applications\css_FILE.bat\DefaultIcon]
+@="C:\\Windows\\personal.ico\\css.ico,0"
+[HKEY_CLASSES_ROOT\Applications\css_FILE.bat\shell\open\command]
+@="\"C:\\Program Files (Portable)\\Notepad++\\notepad++.exe\" \"%1\""
+
+[HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\FileExts\.css\OpenWithProgids]
+"Applications\\css_FILE.bat"=hex(0):
+; =================================================================================================
+
+
+
+; ========================================= dat ============================================
+
+[HKEY_CURRENT_USER\Software\Classes\Applications\dat_FILE.bat]
+@="Data File"
+"FriendlyTypeName"="Data File"
+[HKEY_CLASSES_ROOT\Applications\dat_FILE.bat\DefaultIcon]
+@="C:\\Windows\\personal.ico\\dat.ico,0"
+[HKEY_CLASSES_ROOT\Applications\dat_FILE.bat\shell\open\command]
+@="\"C:\\Program Files (Portable)\\Notepad++\\notepad++.exe\" \"%1\""
+
+[HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\FileExts\.dat\OpenWithProgids]
+"Applications\\dat_FILE.bat"=hex(0):
+; =================================================================================================
+
+
+
+; ========================================= file ============================================
+
+[HKEY_CURRENT_USER\Software\Classes\Applications\file_FILE.bat]
+@="Empty File"
+"FriendlyTypeName"="Empty File"
+[HKEY_CLASSES_ROOT\Applications\file_FILE.bat\DefaultIcon]
+@="C:\\Windows\\personal.ico\\file.ico,0"
+[HKEY_CLASSES_ROOT\Applications\file_FILE.bat\shell\open\command]
+@="\"C:\\Program Files (Portable)\\Notepad++\\notepad++.exe\" \"%1\""
+
+[HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\FileExts\.\OpenWithProgids]
+"Applications\\file_FILE.bat"=hex(0):
+; =================================================================================================
+
+
+
+; ========================================= h ============================================
+
+[HKEY_CURRENT_USER\Software\Classes\Applications\h_FILE.bat]
+@="C/C++/Objective-C Header File"
+"FriendlyTypeName"="C/C++/Objective-C Header File"
+[HKEY_CLASSES_ROOT\Applications\h_FILE.bat\DefaultIcon]
+@="C:\\Windows\\personal.ico\\h.ico,0"
+[HKEY_CLASSES_ROOT\Applications\h_FILE.bat\shell\open\command]
+@="\"C:\\Program Files (Portable)\\Notepad++\\notepad++.exe\" \"%1\""
+
+[HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\FileExts\.h\OpenWithProgids]
+"Applications\\h_FILE.bat"=hex(0):
+; =================================================================================================
+
+
+
+; ========================================= inf ============================================
+
+[HKEY_CURRENT_USER\Software\Classes\Applications\inf_FILE.bat]
+@="Setup Information File"
+"FriendlyTypeName"="Setup Information File"
+[HKEY_CLASSES_ROOT\Applications\inf_FILE.bat\DefaultIcon]
+@="C:\\Windows\\personal.ico\\inf.ico,0"
+[HKEY_CLASSES_ROOT\Applications\inf_FILE.bat\shell\open\command]
+@="\"C:\\Program Files (Portable)\\Notepad++\\notepad++.exe\" \"%1\""
+
+[HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\FileExts\.inf\OpenWithProgids]
+"Applications\\inf_FILE.bat"=hex(0):
+; =================================================================================================
+
+
+
+; ========================================= ini ============================================
+
+[HKEY_CURRENT_USER\Software\Classes\Applications\ini_FILE.bat]
+@="Windows Initialization File"
+"FriendlyTypeName"="Windows Initialization File"
+[HKEY_CLASSES_ROOT\Applications\ini_FILE.bat\DefaultIcon]
+@="C:\\Windows\\personal.ico\\ini.ico,0"
+[HKEY_CLASSES_ROOT\Applications\ini_FILE.bat\shell\open\command]
+@="\"C:\\Program Files (Portable)\\Notepad++\\notepad++.exe\" \"%1\""
+
+[HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\FileExts\.ini\OpenWithProgids]
+"Applications\\ini_FILE.bat"=hex(0):
+; =================================================================================================
+
+
+
+; ========================================= java ============================================
+
+[HKEY_CURRENT_USER\Software\Classes\Applications\java_FILE.bat]
+@="Java Source Code File"
+"FriendlyTypeName"="Java Source Code File"
+[HKEY_CLASSES_ROOT\Applications\java_FILE.bat\DefaultIcon]
+@="C:\\Windows\\personal.ico\\java.ico,0"
+[HKEY_CLASSES_ROOT\Applications\java_FILE.bat\shell\open\command]
+@="\"C:\\Program Files (Portable)\\Notepad++\\notepad++.exe\" \"%1\""
+
+[HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\FileExts\.java\OpenWithProgids]
+"Applications\\java_FILE.bat"=hex(0):
+; =================================================================================================
+
+
+
+; ========================================= js ============================================
+
+[HKEY_CURRENT_USER\Software\Classes\Applications\js_FILE.bat]
+@="JavaScript Source File"
+"FriendlyTypeName"="JavaScript Source File"
+[HKEY_CLASSES_ROOT\Applications\js_FILE.bat\DefaultIcon]
+@="C:\\Windows\\personal.ico\\js.ico,0"
+[HKEY_CLASSES_ROOT\Applications\js_FILE.bat\shell\open\command]
+@="\"C:\\Program Files (Portable)\\Notepad++\\notepad++.exe\" \"%1\""
+
+[HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\FileExts\.js\OpenWithProgids]
+"Applications\\js_FILE.bat"=hex(0):
+; =================================================================================================
+
+
+
+; ========================================= o ============================================
+
+[HKEY_CURRENT_USER\Software\Classes\Applications\o_FILE.bat]
+@="Compiled Object File"
+"FriendlyTypeName"="Compiled Object File"
+[HKEY_CLASSES_ROOT\Applications\o_FILE.bat\DefaultIcon]
+@="C:\\Windows\\personal.ico\\o.ico,0"
+[HKEY_CLASSES_ROOT\Applications\o_FILE.bat\shell\open\command]
+@="\"C:\\Program Files (Portable)\\Notepad++\\notepad++.exe\" \"%1\""
+
+[HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\FileExts\.o\OpenWithProgids]
+"Applications\\o_FILE.bat"=hex(0):
+; =================================================================================================
+
+
+
+; ========================================= php ============================================
+
+[HKEY_CURRENT_USER\Software\Classes\Applications\php_FILE.bat]
+@="PHP Source Code File"
+"FriendlyTypeName"="PHP Source Code File"
+[HKEY_CLASSES_ROOT\Applications\php_FILE.bat\DefaultIcon]
+@="C:\\Windows\\personal.ico\\php.ico,0"
+[HKEY_CLASSES_ROOT\Applications\php_FILE.bat\shell\open\command]
+@="\"C:\\Program Files (Portable)\\Notepad++\\notepad++.exe\" \"%1\""
+
+[HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\FileExts\.php\OpenWithProgids]
+"Applications\\php_FILE.bat"=hex(0):
+; =================================================================================================
+
+
+
+; ========================================= py ============================================
+
+[HKEY_CURRENT_USER\Software\Classes\Applications\py_FILE.bat]
+@="Python Script File"
+"FriendlyTypeName"="Python Script File"
+[HKEY_CLASSES_ROOT\Applications\py_FILE.bat\DefaultIcon]
+@="C:\\Windows\\personal.ico\\py.ico,0"
+[HKEY_CLASSES_ROOT\Applications\py_FILE.bat\shell\open\command]
+@="\"C:\\Program Files (Portable)\\Notepad++\\notepad++.exe\" \"%1\""
+
+[HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\FileExts\.py\OpenWithProgids]
+"Applications\\py_FILE.bat"=hex(0):
+; =================================================================================================
+
+
+
+; ========================================= tmp ============================================
+
+[HKEY_CURRENT_USER\Software\Classes\Applications\tmp_FILE.bat]
+@="Temporary File"
+"FriendlyTypeName"="Temporary File"
+[HKEY_CLASSES_ROOT\Applications\tmp_FILE.bat\DefaultIcon]
+@="C:\\Windows\\personal.ico\\tmp.ico,0"
+[HKEY_CLASSES_ROOT\Applications\tmp_FILE.bat\shell\open\command]
+@="\"C:\\Program Files (Portable)\\Notepad++\\notepad++.exe\" \"%1\""
+
+[HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\FileExts\.tmp\OpenWithProgids]
+"Applications\\tmp_FILE.bat"=hex(0):
+; =================================================================================================
+
+
+
+; ========================================= txt ============================================
+
+[HKEY_CURRENT_USER\Software\Classes\Applications\txt_FILE.bat]
+@="Plain Text File"
+"FriendlyTypeName"="Plain Text File"
+[HKEY_CLASSES_ROOT\Applications\txt_FILE.bat\DefaultIcon]
+@="C:\\Windows\\personal.ico\\txt.ico,0"
+[HKEY_CLASSES_ROOT\Applications\txt_FILE.bat\shell\open\command]
+@="\"C:\\Program Files (Portable)\\Notepad++\\notepad++.exe\" \"%1\""
+
+[HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\FileExts\.txt\OpenWithProgids]
+"Applications\\txt_FILE.bat"=hex(0):
+; =================================================================================================
+
+
+
+; ========================================= rc ============================================
+
+[HKEY_CURRENT_USER\Software\Classes\Applications\rc_FILE.bat]
+@="Resource Script File"
+"FriendlyTypeName"="Resource Script File"
+[HKEY_CLASSES_ROOT\Applications\rc_FILE.bat\DefaultIcon]
+@="C:\\Windows\\personal.ico\\rc.ico,0"
+[HKEY_CLASSES_ROOT\Applications\rc_FILE.bat\shell\open\command]
+@="\"C:\\Program Files (Portable)\\Notepad++\\notepad++.exe\" \"%1\""
+
+[HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\FileExts\.rc\OpenWithProgids]
+"Applications\\rc_FILE.bat"=hex(0):
+; =================================================================================================
+
+
+
+; ========================================= xml ============================================
+
+[HKEY_CURRENT_USER\Software\Classes\Applications\xml_FILE.bat]
+@="XML File"
+"FriendlyTypeName"="XML File"
+[HKEY_CLASSES_ROOT\Applications\xml_FILE.bat\DefaultIcon]
+@="C:\\Windows\\personal.ico\\xml.ico,0"
+[HKEY_CLASSES_ROOT\Applications\xml_FILE.bat\shell\open\command]
+@="\"C:\\Program Files (Portable)\\Notepad++\\notepad++.exe\" \"%1\""
+
+[HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\FileExts\.xml\OpenWithProgids]
+"Applications\\xml_FILE.bat"=hex(0):
+; =================================================================================================
+
+
+
+; ========================================= mkv ============================================
+
+[HKEY_CURRENT_USER\Software\Classes\Applications\mkv_FILE.bat]
+@="Matroska Video File"
+"FriendlyTypeName"="Matroska Video File"
+[HKEY_CLASSES_ROOT\Applications\mkv_FILE.bat\DefaultIcon]
+@="C:\\Windows\\personal.ico\\mkv.ico,0"
+[HKEY_CLASSES_ROOT\Applications\mkv_FILE.bat\shell\open\command]
+@="\"C:\\Program Files (Portable)\\VLC\\vlc.exe\" \"%1\""
+
+[HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\FileExts\.mkv\OpenWithProgids]
+"Applications\\mkv_FILE.bat"=hex(0):
+; =================================================================================================
+
+
+
+; ========================================= mov ============================================
+
+[HKEY_CURRENT_USER\Software\Classes\Applications\mov_FILE.bat]
+@="Apple QuickTime Movie File"
+"FriendlyTypeName"="Apple QuickTime Movie File"
+[HKEY_CLASSES_ROOT\Applications\mov_FILE.bat\DefaultIcon]
+@="C:\\Windows\\personal.ico\\mov.ico,0"
+[HKEY_CLASSES_ROOT\Applications\mov_FILE.bat\shell\open\command]
+@="\"C:\\Program Files (Portable)\\VLC\\vlc.exe\" \"%1\""
+
+[HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\FileExts\.mov\OpenWithProgids]
+"Applications\\mov_FILE.bat"=hex(0):
+; =================================================================================================
+
+
+
+; ========================================= mp3 ============================================
+
+[HKEY_CURRENT_USER\Software\Classes\Applications\mp3_FILE.bat]
+@="MP3 Audio File"
+"FriendlyTypeName"="MP3 Audio File"
+[HKEY_CLASSES_ROOT\Applications\mp3_FILE.bat\DefaultIcon]
+@="C:\\Windows\\personal.ico\\mp3.ico,0"
+[HKEY_CLASSES_ROOT\Applications\mp3_FILE.bat\shell\open\command]
+@="\"C:\\Program Files (Portable)\\VLC\\vlc.exe\" \"%1\""
+
+[HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\FileExts\.mp3\OpenWithProgids]
+"Applications\\mp3_FILE.bat"=hex(0):
+; =================================================================================================
+
+
+
+; ========================================= mp4 ============================================
+
+[HKEY_CURRENT_USER\Software\Classes\Applications\mp4_FILE.bat]
+@="MPEG-4 Video File"
+"FriendlyTypeName"="MPEG-4 Video File"
+[HKEY_CLASSES_ROOT\Applications\mp4_FILE.bat\DefaultIcon]
+@="C:\\Windows\\personal.ico\\mp4.ico,0"
+[HKEY_CLASSES_ROOT\Applications\mp4_FILE.bat\shell\open\command]
+@="\"C:\\Program Files (Portable)\\VLC\\vlc.exe\" \"%1\""
+
+[HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\FileExts\.mp4\OpenWithProgids]
+"Applications\\mp4_FILE.bat"=hex(0):
+; =================================================================================================
+
+
+
+; ========================================= mpeg ============================================
+
+[HKEY_CURRENT_USER\Software\Classes\Applications\mpeg_FILE.bat]
+@="MPEG Movie File"
+"FriendlyTypeName"="MPEG Movie File"
+[HKEY_CLASSES_ROOT\Applications\mpeg_FILE.bat\DefaultIcon]
+@="C:\\Windows\\personal.ico\\mpeg.ico,0"
+[HKEY_CLASSES_ROOT\Applications\mpeg_FILE.bat\shell\open\command]
+@="\"C:\\Program Files (Portable)\\VLC\\vlc.exe\" \"%1\""
+
+[HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\FileExts\.mpeg\OpenWithProgids]
+"Applications\\mpeg_FILE.bat"=hex(0):
+; =================================================================================================
+
+
+
+; ========================================= flac ============================================
+
+[HKEY_CURRENT_USER\Software\Classes\Applications\flac_FILE.bat]
+@="Free Lossless Audio Codec File"
+"FriendlyTypeName"="Free Lossless Audio Codec File"
+[HKEY_CLASSES_ROOT\Applications\flac_FILE.bat\DefaultIcon]
+@="C:\\Windows\\personal.ico\\flac.ico,0"
+[HKEY_CLASSES_ROOT\Applications\flac_FILE.bat\shell\open\command]
+@="\"C:\\Program Files (Portable)\\VLC\\vlc.exe\" \"%1\""
+
+[HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\FileExts\.flac\OpenWithProgids]
+"Applications\\flac_FILE.bat"=hex(0):
+; =================================================================================================
+
+
+
+; ========================================= flv ============================================
+
+[HKEY_CURRENT_USER\Software\Classes\Applications\flv_FILE.bat]
+@="Animate Video File"
+"FriendlyTypeName"="Animate Video File"
+[HKEY_CLASSES_ROOT\Applications\flv_FILE.bat\DefaultIcon]
+@="C:\\Windows\\personal.ico\\flv.ico,0"
+[HKEY_CLASSES_ROOT\Applications\flv_FILE.bat\shell\open\command]
+@="\"C:\\Program Files (Portable)\\VLC\\vlc.exe\" \"%1\""
+
+[HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\FileExts\.flv\OpenWithProgids]
+"Applications\\flv_FILE.bat"=hex(0):
+; =================================================================================================
+
+
+
+; ========================================= avi ============================================
+
+[HKEY_CURRENT_USER\Software\Classes\Applications\avi_FILE.bat]
+@="Audio Video Interleave File"
+"FriendlyTypeName"="Audio Video Interleave File"
+[HKEY_CLASSES_ROOT\Applications\avi_FILE.bat\DefaultIcon]
+@="C:\\Windows\\personal.ico\\avi.ico,0"
+[HKEY_CLASSES_ROOT\Applications\avi_FILE.bat\shell\open\command]
+@="\"C:\\Program Files (Portable)\\VLC\\vlc.exe\" \"%1\""
+
+[HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\FileExts\.avi\OpenWithProgids]
+"Applications\\avi_FILE.bat"=hex(0):
+; =================================================================================================
+
+
+
+; ========================================= swf ============================================
+
+[HKEY_CURRENT_USER\Software\Classes\Applications\swf_FILE.bat]
+@="Shockwave Flash Movie File"
+"FriendlyTypeName"="Shockwave Flash Movie File"
+[HKEY_CLASSES_ROOT\Applications\swf_FILE.bat\DefaultIcon]
+@="C:\\Windows\\personal.ico\\swf.ico,0"
+[HKEY_CLASSES_ROOT\Applications\swf_FILE.bat\shell\open\command]
+@="\"C:\\Program Files (Portable)\\VLC\\vlc.exe\" \"%1\""
+
+[HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\FileExts\.swf\OpenWithProgids]
+"Applications\\swf_FILE.bat"=hex(0):
+; =================================================================================================
+
+
+
+; ========================================= wav ============================================
+
+[HKEY_CURRENT_USER\Software\Classes\Applications\wav_FILE.bat]
+@="WAVE Audio File"
+"FriendlyTypeName"="WAVE Audio File"
+[HKEY_CLASSES_ROOT\Applications\wav_FILE.bat\DefaultIcon]
+@="C:\\Windows\\personal.ico\\wav.ico,0"
+[HKEY_CLASSES_ROOT\Applications\wav_FILE.bat\shell\open\command]
+@="\"C:\\Program Files (Portable)\\VLC\\vlc.exe\" \"%1\""
+
+[HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\FileExts\.wav\OpenWithProgids]
+"Applications\\wav_FILE.bat"=hex(0):
+; =================================================================================================
+
+
+
+; ========================================= rar ============================================
+
+[HKEY_CURRENT_USER\Software\Classes\Applications\rar_FILE.bat]
+@="WinRAR Compressed Archive File"
+"FriendlyTypeName"="WinRAR Compressed Archive File"
+[HKEY_CLASSES_ROOT\Applications\rar_FILE.bat\DefaultIcon]
+@="C:\\Windows\\personal.ico\\rar.ico,0"
+[HKEY_CLASSES_ROOT\Applications\rar_FILE.bat\shell\open\command]
+@="\"C:\\Program Files (Portable)\\7-Zip\\7zFM.exe\" \"%1\""
+
+[HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\FileExts\.rar\OpenWithProgids]
+"Applications\\rar_FILE.bat"=hex(0):
+; =================================================================================================
+
+
+
+; ========================================= 7z ============================================
+
+[HKEY_CURRENT_USER\Software\Classes\Applications\7z_FILE.bat]
+@="7-Zip Compressed File"
+"FriendlyTypeName"="7-Zip Compressed File"
+[HKEY_CLASSES_ROOT\Applications\7z_FILE.bat\DefaultIcon]
+@="C:\\Windows\\personal.ico\\7z.ico,0"
+[HKEY_CLASSES_ROOT\Applications\7z_FILE.bat\shell\open\command]
+@="\"C:\\Program Files (Portable)\\7-Zip\\7zFM.exe\" \"%1\""
+
+[HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\FileExts\.7z\OpenWithProgids]
+"Applications\\7z_FILE.bat"=hex(0):
+; =================================================================================================
+
+
+
+; ========================================= tar.gz ============================================
+
+[HKEY_CURRENT_USER\Software\Classes\Applications\tar.gz_FILE.bat]
+@="Compressed Tarball File"
+"FriendlyTypeName"="Compressed Tarball File"
+[HKEY_CLASSES_ROOT\Applications\tar.gz_FILE.bat\DefaultIcon]
+@="C:\\Windows\\personal.ico\\tar.gz.ico,0"
+[HKEY_CLASSES_ROOT\Applications\tar.gz_FILE.bat\shell\open\command]
+@="\"C:\\Program Files (Portable)\\7-Zip\\7zFM.exe\" \"%1\""
+
+[HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\FileExts\.tar.gz\OpenWithProgids]
+"Applications\\tar.gz_FILE.bat"=hex(0):
+; =================================================================================================
+
+
+
+; ========================================= gz ============================================
+
+[HKEY_CURRENT_USER\Software\Classes\Applications\gz_FILE.bat]
+@="GNU Zipped Archive File"
+"FriendlyTypeName"="GNU Zipped Archive File"
+[HKEY_CLASSES_ROOT\Applications\gz_FILE.bat\DefaultIcon]
+@="C:\\Windows\\personal.ico\\gz.ico,0"
+[HKEY_CLASSES_ROOT\Applications\gz_FILE.bat\shell\open\command]
+@="\"C:\\Program Files (Portable)\\7-Zip\\7zFM.exe\" \"%1\""
+
+[HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\FileExts\.gz\OpenWithProgids]
+"Applications\\gz_FILE.bat"=hex(0):
+; =================================================================================================
+
+
+
+; ========================================= zip ============================================
+
+[HKEY_CURRENT_USER\Software\Classes\Applications\zip_FILE.bat]
+@="Zipped File"
+"FriendlyTypeName"="Zipped File"
+[HKEY_CLASSES_ROOT\Applications\zip_FILE.bat\DefaultIcon]
+@="C:\\Windows\\personal.ico\\zip.ico,0"
+[HKEY_CLASSES_ROOT\Applications\zip_FILE.bat\shell\open\command]
+@="\"C:\\Program Files (Portable)\\7-Zip\\7zFM.exe\" \"%1\""
+
+[HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\FileExts\.zip\OpenWithProgids]
+"Applications\\zip_FILE.bat"=hex(0):
+; =================================================================================================
+
+
+
+; ========================================= html ============================================
+
+[HKEY_CURRENT_USER\Software\Classes\Applications\html_FILE.bat]
+@="Hypertext Markup Language File"
+"FriendlyTypeName"="Hypertext Markup Language File"
+[HKEY_CLASSES_ROOT\Applications\html_FILE.bat\DefaultIcon]
+@="C:\\Windows\\personal.ico\\html.ico,0"
+[HKEY_CLASSES_ROOT\Applications\html_FILE.bat\shell\open\command]
+@="\"C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe\" \"%1\""
+
+[HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\FileExts\.html\OpenWithProgids]
+"Applications\\html_FILE.bat"=hex(0):
+; =================================================================================================
+
+
+
+; ========================================= pdf ============================================
+
+[HKEY_CURRENT_USER\Software\Classes\Applications\pdf_FILE.bat]
+@="Portable Document Format File"
+"FriendlyTypeName"="Portable Document Format File"
+[HKEY_CLASSES_ROOT\Applications\pdf_FILE.bat\DefaultIcon]
+@="C:\\Windows\\personal.ico\\pdf.ico,0"
+[HKEY_CLASSES_ROOT\Applications\pdf_FILE.bat\shell\open\command]
+@="\"C:\\Program Files (Portable)\\Foxit Reader\\FoxitReader.exe\" \"%1\""
+
+[HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\FileExts\.pdf\OpenWithProgids]
+"Applications\\pdf_FILE.bat"=hex(0):
+; =================================================================================================
+
+
+
+; ========================================= bmp ============================================
+
+[HKEY_CURRENT_USER\Software\Classes\Applications\bmp_FILE.bat]
+@="Bitmap Image File"
+"FriendlyTypeName"="Bitmap Image File"
+[HKEY_CLASSES_ROOT\Applications\bmp_FILE.bat\DefaultIcon]
+@="C:\\Windows\\personal.ico\\bmp.ico,0"
+[HKEY_CLASSES_ROOT\Applications\bmp_FILE.bat\shell\open\command]
+@="\"C:\\Program Files (Portable)\\XnView\\xnview.exe\" \"%1\""
+
+[HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\FileExts\.bmp\OpenWithProgids]
+"Applications\\bmp_FILE.bat"=hex(0):
+; =================================================================================================
+
+
+
+; ========================================= png ============================================
+
+[HKEY_CURRENT_USER\Software\Classes\Applications\png_FILE.bat]
+@="Portable Network Graphic Image File"
+"FriendlyTypeName"="Portable Network Graphic Image File"
+[HKEY_CLASSES_ROOT\Applications\png_FILE.bat\DefaultIcon]
+@="C:\\Windows\\personal.ico\\png.ico,0"
+[HKEY_CLASSES_ROOT\Applications\png_FILE.bat\shell\open\command]
+@="\"C:\\Program Files (Portable)\\XnView\\xnview.exe\" \"%1\""
+
+[HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\FileExts\.png\OpenWithProgids]
+"Applications\\png_FILE.bat"=hex(0):
+; =================================================================================================
+
+
+
+; ========================================= jpg ============================================
+
+[HKEY_CURRENT_USER\Software\Classes\Applications\jpg_FILE.bat]
+@="JPEG Image File"
+"FriendlyTypeName"="JPEG Image File"
+[HKEY_CLASSES_ROOT\Applications\jpg_FILE.bat\DefaultIcon]
+@="C:\\Windows\\personal.ico\\jpg.ico,0"
+[HKEY_CLASSES_ROOT\Applications\jpg_FILE.bat\shell\open\command]
+@="\"C:\\Program Files (Portable)\\XnView\\xnview.exe\" \"%1\""
+
+[HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\FileExts\.jpg\OpenWithProgids]
+"Applications\\jpg_FILE.bat"=hex(0):
+; =================================================================================================
+
+
+
+; ========================================= gif ============================================
+
+[HKEY_CURRENT_USER\Software\Classes\Applications\gif_FILE.bat]
+@="Graphical Interchange Format File"
+"FriendlyTypeName"="Graphical Interchange Format File"
+[HKEY_CLASSES_ROOT\Applications\gif_FILE.bat\DefaultIcon]
+@="C:\\Windows\\personal.ico\\gif.ico,0"
+[HKEY_CLASSES_ROOT\Applications\gif_FILE.bat\shell\open\command]
+@="\"C:\\Program Files (Portable)\\XnView\\xnview.exe\" \"%1\""
+
+[HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\FileExts\.gif\OpenWithProgids]
+"Applications\\gif_FILE.bat"=hex(0):
+; =================================================================================================

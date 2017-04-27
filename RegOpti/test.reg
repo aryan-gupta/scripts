@@ -1,0 +1,21 @@
+Windows Registry Editor Version 5.00
+
+; ========================================= xml ============================================
+
+[HKEY_CURRENT_USER\Software\Classes\Applications\xml_FILE.bat]
+@="XML File"
+"FriendlyTypeName"="XML File"
+[HKEY_CLASSES_ROOT\.xml]
+@="Applications\\xml_FILE.bat"
+[HKEY_CLASSES_ROOT\.xml\shell\open\command]
+@="\"C:\\Program Files (Portable)\\Notepad++\\notepad++.exe\" \"%1\""
+[HKEY_CLASSES_ROOT\Applications\xml_FILE.bat\DefaultIcon]
+@="C:\\Windows\\personal.ico\\xml.ico,0"
+[HKEY_CLASSES_ROOT\Applications\xml_FILE.bat\shell\open\command]
+@="\"C:\\Program Files (Portable)\\Notepad++\\notepad++.exe\" \"%1\""
+
+[HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\FileExts\.xml\UserChoice]
+"ProgId"="Applications\\xml_FILE.bat"
+[HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\FileExts\.xml\OpenWithProgids]
+"Applications\\xml_FILE.bat"=hex(0):
+; =================================================================================================

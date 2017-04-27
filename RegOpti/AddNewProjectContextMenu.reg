@@ -1,0 +1,7 @@
+Windows Registry Editor Version 5.00
+
+[HKEY_CLASSES_ROOT\Directory\Background\shell\NewProject]
+@="&New C++ Project"
+
+[HKEY_CLASSES_ROOT\Directory\Background\shell\NewProject\command]
+@="C:\\Windows\\personal\\Scripts\\MakeCProjectTemplate.bat \"%V\\temp\""

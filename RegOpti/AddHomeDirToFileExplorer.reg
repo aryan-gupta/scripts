@@ -1,0 +1,31 @@
+Windows Registry Editor Version 5.00
+
+[HKEY_CLASSES_ROOT\CLSID\{8f82c18d-c7f8-47bb-8e87-8d281b5b0dac}]
+@="Aryan (home)"
+"DescriptionID"=dword:00000003
+"Infotip"="Home Folder"
+"System.IsPinnedToNameSpaceTree"=dword:00000001
+"SortOrderIndex"=dword:00000030
+
+[HKEY_CLASSES_ROOT\CLSID\{8f82c18d-c7f8-47bb-8e87-8d281b5b0dac}\DefaultIcon]
+@="%SystemRoot%\\system32\\shell32.dll,160"
+
+[HKEY_CLASSES_ROOT\CLSID\{8f82c18d-c7f8-47bb-8e87-8d281b5b0dac}\InProcServer32]
+@=hex(2):25,00,73,00,79,00,73,00,74,00,65,00,6d,00,72,00,6f,00,6f,00,74,00,25,\
+00,5c,00,73,00,79,00,73,00,74,00,65,00,6d,00,33,00,32,00,5c,00,73,00,68,00,\
+65,00,6c,00,6c,00,33,00,32,00,2e,00,64,00,6c,00,6c,00,00,00
+"ThreadingModel"="Both"
+
+[HKEY_CLASSES_ROOT\CLSID\{8f82c18d-c7f8-47bb-8e87-8d281b5b0dac}\Instance]
+"CLSID"="{0E5AAE11-A475-4c5b-AB00-C66DE400274E}"
+
+[HKEY_CLASSES_ROOT\CLSID\{8f82c18d-c7f8-47bb-8e87-8d281b5b0dac}\Instance\InitPropertyBag]
+"Attributes"=dword:00000011
+"TargetFolderPath"="C:\\Users\\Aryan"
+
+[HKEY_CLASSES_ROOT\CLSID\{8f82c18d-c7f8-47bb-8e87-8d281b5b0dac}\ShellFolder]
+"Attributes"=dword:f080004d
+"FolderValueFlags"=dword:00000029
+"SortOrderIndex"=dword:00000000
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\MyComputer\NameSpace\{8f82c18d-c7f8-47bb-8e87-8d281b5b0dac}]
