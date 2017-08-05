@@ -1,8 +1,6 @@
 
 # https://github.com/W4RH4WK/Debloat-Windows-10/blob/47c2666ddd162a511a6517d74502d3dc8465a430/scripts/remove-default-apps.ps1#L64-L98
 
-Import-Module -DisableNameChecking $PSScriptRoot\..\lib\take-own.psm1
-
 echo "Elevating priviledges for this process"
 do {} until (Elevate-Privileges SeTakeOwnershipPrivilege)
 
@@ -21,7 +19,7 @@ $apps = @(
     "Microsoft.Office.OneNote"
     "Microsoft.People"
     "Microsoft.SkypeApp"
-    #"Microsoft.Windows.Photos"
+    "Microsoft.Windows.Photos"
     "Microsoft.WindowsAlarms"
     #"Microsoft.WindowsCalculator"
     "Microsoft.WindowsCamera"
@@ -34,6 +32,18 @@ $apps = @(
     "Microsoft.ZuneVideo"
     "microsoft.windowscommunicationsapps"
     "Microsoft.MinecraftUWP"
+    "Microsoft.GetHelp"
+    "Microsoft.Microsoft3DViewer"
+    "Microsoft.MicrosoftStickyNotes"
+    #"Windows.MiracastView"
+    "Microsoft.Wallet"
+    "Microsoft.Advertising.Xaml"
+    "Microsoft.MSPaint"
+    "KeeperSecurityInc.Keeper"
+    "Microsoft.Messaging"
+    "Microsoft.Print3D"
+    "Microsoft.OneConnect"
+
 
     # non-Microsoft
     "9E2F88E3.Twitter"
@@ -41,6 +51,10 @@ $apps = @(
     "ShazamEntertainmentLtd.Shazam"
     "king.com.CandyCrushSaga"
     "ClearChannelRadioDigital.iHeartRadio"
+    "CAF9E577.Plex"
+    "king.com.BubbleWitch3Saga"
+    "king.com.CandyCrushSodaSaga"
+    "A278AB0D.MarchofEmpires"
 
     # apps which cannot be removed using Remove-AppxPackage
     #"Microsoft.BioEnrollment"
@@ -52,7 +66,11 @@ $apps = @(
     #"Windows.ContactSupport"
 )
 
+Write-Output "------------"
+
 foreach ($app in $apps) {
+    Write-Output $app
+
     Get-AppxPackage -Name $app -AllUsers | Remove-AppxPackage
 
     Get-AppXProvisionedPackage -Online |
@@ -73,7 +91,7 @@ $needles = @(
     # "Gaming"
     # "InternetExplorer"
     # "Maps"
-    # "OneDrive"
+     "OneDrive"
     # "Wallet"
     # "Xbox"
 )
