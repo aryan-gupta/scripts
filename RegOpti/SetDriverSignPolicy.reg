@@ -1,0 +1,11 @@
+Windows Registry Editor Version 5.00
+
+; Specifies how the System responds when a user tries to install device driver files that are not digitally signed 
+; 00 - Ignore / 01 - Warn / 02 - Block
+[HKEY_LOCAL_MACHINE\Software\Microsoft\Driver Signing]
+"Policy"=hex:01
+
+; Do you want Windows to download driver Software
+; 0 - Never / 1 - Allways / 2 - Install driver Software, if it is not found on my computer
+[HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\DriverSearching] 
+"SearchOrderConfig"=dword:1
