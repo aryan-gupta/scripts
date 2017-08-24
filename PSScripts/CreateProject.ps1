@@ -6,13 +6,13 @@ function Create-GitHubRepo {
 		[Switch] $Private
 	)
 	
-	$postParamsHash = @{
+	$PostParamsHash = @{
 		name=$RepoName;
 		description=$Description;
 		private=$(If ($Private) {"true"} Else {"false"}) 
 	}
 	
-	$postParams = $postParamsHash | ConvertTo-Json
+	$PostParams = $PostParamsHash | ConvertTo-Json
 	
 	# https://stackoverflow.com/questions/27951561/use-invoke-webrequest-with-a-username-and-password-for-basic-authentication-on-t
 	$user = 'aryan-gupta'
@@ -24,8 +24,19 @@ function Create-GitHubRepo {
 		Authorization = $basicAuthValue
 	}
 
-	Invoke-WebRequest -ContentType "application/json" -URI "https://api.github.com/user/repos" -Method POST -Body $postParams -Headers $Headers
+	Invoke-WebRequest -ContentType "application/json" -URI "https://api.github.com/user/repos" -Method POST -Body $PostParams -Headers $Headers
 	
+}
+
+function Setup-GitSCM {
+	Param(
+		[parameter(Mandatory=$true, Position=0)] [String] $RepoName
+	)
+
+	# Sample: https://github.com/aryan-gupta/WINSetup.git
+	$GitLink = ('https://github.com/aryan-gupta/' + $RepoName + '.git')
+	git init
+	git remote add origin $GitLink
 }
 
 function Create-Folders {
@@ -72,4 +83,25 @@ int main(int argc, char* argv[]) {
 	New-Item -Force -Type "File" -Path ($RootDir + '\src') -Name 'main.cpp' -Value ($FileHeader + '`n' + $MainText)
 	
 	# Main Header
+	New-Item -Force -Type "File" -Path 
 }
+
+
+# Main ====
+
+Param(
+	[parameter(Mandatory=$true, Position=0)] [String] $ProjName,
+	[String] $Description,
+	[Switch] $Private
+)
+
+if ($Private) {
+	Create-GitHubRepo -RepoName $ProjName -Description $Description -Private
+} elseif {
+	Create-GitHubRepo -RepoName $ProjName -Description $Description
+}
+
+Setup-GitSCM $ProjName
+Create-Folders
+Create-Files
+
