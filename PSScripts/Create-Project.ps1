@@ -55,43 +55,96 @@ function Create-Folders {
 }
 
 function Create-Files {
+	
+	Param(
+		[parameter(Mandatory=$true,Position=0)] [String] $ProjName
+	)
+	
+	$RootDir = (Resolve-Path '.\').Path
+	
 	$FileHeader = 
 @'
-/* 
- * Copyright (c) 2017 The Gupta Empire - All Rights Reserved
- * Unauthorized copying of this file, via any medium is strictly prohibited
- * Proprietary and confidential
- *
- * Written by Aryan Gupta <me@theguptaempire.net>
- * 
- * =============================================================================
- * @author 			Aryan Gupta
- * @project 		
- * @title 			
- * @date			(YYYY-MM-DD)
- * @version			1.0.0
- * @description 	
- * =============================================================================
- */		
+/**    
+***    Copyright (c) 2017 The Gupta Empire - All Rights Reserved
+***    Unauthorized copying of this file, via any medium is strictly prohibited
+***    Proprietary and confidential
+***    
+***    Written by Aryan Gupta <me@theguptaempire.net>
+***    
+***=============================================================================
+***    @author          Aryan Gupta
+***    @project         
+***    @title           main
+***    @date            (YYYY-MM-DD)
+***    @version         
+***    @brief           Contains program entry point and misc. functions
+***=============================================================================
+**/
 '@
-
-	$RootDir = (Resolve-Path '.\').Path
 	
 	# Main CPP
 	$MainText = 
 @'
 #include "info.h"
+
+#include <iostream>
+
+#include "main.h"
+
 int main(int argc, char* argv[]) {
+`tPRINT_LEGAL_TERR;
 `t
+`treturn 0;
 }
 '@
 	New-Item -Force -Type "File" -Path ($RootDir + '\src') -Name 'main.cpp' -Value ($FileHeader + '`n' + $MainText)
 	
 	# Main Header
-	New-Item -Force -Type "File" -Path 
+	$MainHText = 
+@'
+#pragma once
+
+int main(int argc, char* argv[]);
+'@
+	New-Item -Force -Type "File" -Path ($RootDir + '\src') -Name 'main.cpp' -Value ($FileHeader + '`n' + $MainHText)
 	
 	# Readme
-	
+	$ReadMe = 
+@"
+<p align="center">
+  <img src="res/icon.png" alt="Drawing" width="200"/>
+</p>
+`n`n`n
+# $ProjName #`n`n`n`n
+## Prerequisites ##`n`n`n`n
+## Installation ##
+Please use `<make> ./bin/make.exe` to compile the program when debugging. <br>
+You can also use `<make> install` to compile the final (optimized) program.
+`n`n`n
+## Usage ##
+See Installation. If you used `<make> ./bin/make.exe` to compile, the program is
+in the `bin` directory. you can also use `<make> install`.
+`n`n`n
+## Built with ##
+#### SDL 2.0 ####
+* https://www.libsdl.org/  
+* https://www.libsdl.org/download-2.0.php
+`n`n`n
+## Contributing ##
+1. Fork it!
+2. Create your feature branch: `git checkout -b my-new-feature`
+3. Commit your changes: `git commit -am 'Add some feature'`
+4. Push to the branch: `git push origin my-new-feature`
+5. Submit a pull request :D
+`n`n`n
+## Authors ##
+* **Aryan Gupta**
+`n`n`n
+## License ##
+Copyright (c) 2017 The Gupta Empire - All Rights Reserved
+See LICENSE.md File for more info. 
+"@
+	New-Item -Force -Type file -Path $RootDir -Name 'README.md' -Value $ReadMe
 	# Licence
 	
 	# .gitignore
@@ -99,6 +152,10 @@ int main(int argc, char* argv[]) {
 	# Resource script
 	
 	# makefile
+	
+	# info Header
+	
+	# .gitkeep
 	
 }
 
