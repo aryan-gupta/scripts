@@ -39,6 +39,11 @@ function Setup-GitSCM {
 	git remote add origin $GitLink
 }
 
+function Create-InitialCommit {
+	git add *
+	git commit -m "Initial Commit"
+}
+
 function Create-Folders {
 	$RootDir = (Resolve-Path ".\").Path
 	New-Item -Type "Directory" -Path $RootDir -Name 'src' -Force # cpp and h files
@@ -84,6 +89,17 @@ int main(int argc, char* argv[]) {
 	
 	# Main Header
 	New-Item -Force -Type "File" -Path 
+	
+	# Readme
+	
+	# Licence
+	
+	# .gitignore
+	
+	# Resource script
+	
+	# makefile
+	
 }
 
 
@@ -104,4 +120,5 @@ if ($Private) {
 Setup-GitSCM $ProjName
 Create-Folders
 Create-Files
+Create-InitialCommit
 
