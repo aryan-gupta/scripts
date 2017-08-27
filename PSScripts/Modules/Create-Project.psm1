@@ -161,7 +161,7 @@ See LICENSE.md File for more info.
 
 
 # Main ====
-
+<#
 Param(
 	[parameter(Mandatory=$true, Position=0)] [String] $ProjName,
 	[String] $Description,
@@ -170,7 +170,7 @@ Param(
 
 if ($Private) {
 	Create-GitHubRepo -RepoName $ProjName -Description $Description -Private
-} elseif {
+} else {
 	Create-GitHubRepo -RepoName $ProjName -Description $Description
 }
 
@@ -179,3 +179,4 @@ Create-Folders
 Create-Files
 Create-InitialCommit
 
+#>
