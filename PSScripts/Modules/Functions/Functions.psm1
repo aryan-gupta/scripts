@@ -34,3 +34,5 @@ function Restart-Powershell {
 	# Restart Powershell 
 	Powershell.exe "Clear-Host"
 }
+
+Export-ModuleMember *-*
