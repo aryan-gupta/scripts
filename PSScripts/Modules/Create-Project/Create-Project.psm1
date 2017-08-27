@@ -1,5 +1,4 @@
 function Create-GitHubRepo {
-
 	Param(
 		[parameter(Mandatory=$true, Position=0)] [String] $RepoName,
 		[String] $Description,
