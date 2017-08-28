@@ -1,3 +1,5 @@
+$ProjectRoot = "C:\WORKING"
+
 function New-GitHubRepo {
 	Param(
 		[parameter(Mandatory=$true, Position=0)] [String] $RepoName,
@@ -105,6 +107,40 @@ function New-Project {
 	Create-Folders
 	Create-Files
 	Create-InitialCommit
+}
+
+function Open-Project {
+	# Open a current working Project
+	Param(
+		[Parameter(Mandatory=$false, Position=0)] [String] $Project # The name of the Project to create
+	)
+
+	if ($Project -eq $null) { # If no project is given, go to project root directory
+		Set-Location $ProjectRoot
+		return
+	}
+
+	$FullProjectPath = $ProjectRoot + '\' + $Project
+
+	if (Test-Path $FullProjectPath) {
+		Set-Location $FullProjectPath
+		return
+	} else {
+		throw [System.Management.Automation.ItemNotFoundException] ("Open-Project : Cannot find project `'$Project`' at location `'$FullProjectPath`' because it does not exit.")
+	}
+}
+
+function Get-Project {
+	Param(
+		[Parameter(Mandatory=$true, Position=0)] [String] $Project # The name of the Project to create
+	)
+	
+	$FullProjectPath = $ProjectRoot + '\' + $Project
+	
+	if (Test-Path $FullProjectPath) {
+		Write-Host "Project already exists, use `'git pull`' to update project. (Use `'& $RunCommand`') to run it"
+		Set-Variable -Name "RunCommand" -Value "cd $FullProjectPath; git pull" -Option constant -Scope global
+	}
 }
 
 Export-ModuleMember *-*
