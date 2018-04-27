@@ -22,23 +22,6 @@ if (-not (Test-Path $destination)) {
 	Add-Content -Path $log -Value "No folder for backup found, created new backup folder"
 }
 
-# Add-Type -AssemblyName System.Windows.Forms
-# $balloon = New-Object System.Windows.Forms.NotifyIcon 
-# $balloon.BalloonTipIcon  = [System.Windows.Forms.ToolTipIcon]::Info
-# $balloon.BalloonTipTitle = "Attention  $Env:USERNAME"
-# $balloon.BalloonTipText  = 'What do you think of this balloon tip?'
-# $balloon.Visible  = $true 
-# $balloon.ShowBalloonTip(5000);
-
-# [void] [System.Reflection.Assembly]::LoadWithPartialName("System.Windows.Forms")
-# $objNotifyIcon = New-Object System.Windows.Forms.NotifyIcon 
-# #$objNotifyIcon.Icon = "C:\Windows\Folder.ico"
-# $objNotifyIcon.BalloonTipIcon = "Warning" 
-# $objNotifyIcon.BalloonTipText = "Writing a notification." 
-# $objNotifyIcon.BalloonTipTitle = "Test Notification"
-# $objNotifyIcon.Visible = $True 
-# $objNotifyIcon.ShowBalloonTip(5000)
-
 Add-Type -AssemblyName System.Windows.Forms
 
 $PopUp = New-Object System.Windows.Forms.NotifyIcon
