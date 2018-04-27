@@ -1,9 +1,6 @@
 
 # https://github.com/W4RH4WK/Debloat-Windows-10/blob/47c2666ddd162a511a6517d74502d3dc8465a430/scripts/remove-default-apps.ps1#L64-L98
 
-echo "Elevating priviledges for this process"
-do {} until (Elevate-Privileges SeTakeOwnershipPrivilege)
-
 echo "Uninstalling default apps"
 $apps = @(
     # default Windows 10 apps
