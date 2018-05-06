@@ -2,11 +2,11 @@
 Write-Host "Disabling Services"
 $disableServices = @( 
 	## Currently Testing ##
-	"Windows Error Reporting Service"
-	"Windows Image Acquisition"
-	"TCP/IP NetBIOS Helper"
-	"Secondary Logon"
-	"Program Compatibility Assistant Service"
+	# "Windows Error Reporting Service"
+	# "Windows Image Acquisition"
+	# "TCP/IP NetBIOS Helper"
+	# "Secondary Logon"
+	# "Program Compatibility Assistant Service"
 
 	## Telemetry ##
 	"Connected User Experiences and Telemetry"
