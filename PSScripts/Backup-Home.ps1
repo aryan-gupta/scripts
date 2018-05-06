@@ -1,27 +1,18 @@
 
-$BACKUP_SERVER = 'graviton.gempi.re'
+$BACKUP_SERVER = 'graviton'
 $BACKUP_SHARE  = 'Backups'
 
-$SOURCE_DIR = @{
-	'HOME' = 'C:\Users\Aryan'
-}
-
-$SKIP_DIR = @(
-	$SOURCE_DIR['HOME'] + '\Downloads'
-	$SOURCE_DIR['HOME'] + '\AppData\Local'
-	$SOURCE_DIR['HOME'] + '\AppData\LocalLow'
-)
-
-$CREDLOC = 'C:\Users\Aryan\Documents\PowershellCredentials\graviton.ps1'
+$PS_DATA_DIR = "$ENV:Home\Documents\PSData"
+ 
 $DRIVE_LTR = 'B'
 
 $destination = "${DRIVE_LTR}:\$ENV:ComputerName"
 $log = "${DRIVE_LTR}:\logs\$ENV:ComputerName\$(Get-Date -Format FileDate).log"
 
-#echo $destination
-#echo $log
+$DOMAIN_SUFFIX = 'gempi.re'
 
-. $CREDLOC
+. "$PS_DATA_DIR\$BACKUP_SERVER.ps1" # Load the credentials for the backup server
+. "$PS_DATA_DIR\BackupInfo.ps1" # Load the info for the backup folders
 
 Add-Type -AssemblyName System.Windows.Forms
 
@@ -29,22 +20,24 @@ $PopUp = New-Object System.Windows.Forms.NotifyIcon
 $Path = Get-Process -Id $PID | Select-Object -ExpandProperty Path
 $PopUp.Icon = [System.Drawing.Icon]::ExtractAssociatedIcon($Path)
 
-$backup_root = '\\' + $BACKUP_SERVER + '\' + $BACKUP_SHARE
+$backup_root = '\\' + $BACKUP_SERVER + '.' + $DOMAIN_SUFFIX + '\' + $BACKUP_SHARE
+
+# echo $backup_root
+
 $password = $graviton.Password | ConvertTo-SecureString -asPlainText -Force
 $credential = New-Object System.Management.Automation.PSCredential($graviton.Username, $password)
+
+New-PSDrive -Name $DRIVE_LTR -PSProvider Filesystem -Root $backup_root -Persist -Credential $credential -ErrorAction SilentlyContinue | Out-Null
 
 function unmount-exit {
 	Remove-PSDrive -Name B
 	$PopUp.dispose()
-	#Remove-Variable -Name PopUp
 	Exit
 }
 
-#echo $backup_root
- 
-New-PSDrive -Name $DRIVE_LTR -PSProvider Filesystem -Root $backup_root -Persist -Credential $credential -ErrorAction SilentlyContinue | Out-Null
+if (-not (Test-Path -Path "${DRIVE_LTR}:\")) {
+	Write-Error "Could not mount drive ${DRIVE_LTR}:\"
 
-if (-not (Test-Path -Path 'B:\')) {
 	$PopUp.BalloonTipIcon = 'Error'
 
 	$PopUp.BalloonTipTitle = 'Backup Error'
@@ -85,9 +78,6 @@ $exclude_arg = '/XD '
 foreach ($dirs in $SKIP_DIR) {
 	$exclude_arg += ('"' + $dirs + '" ')
 }
-
-# echo $exclude_arg
-# Exit
 
 # https://stackoverflow.com/questions/37635820/how-can-i-enumerate-a-hashtable-as-key-value-pairs-filter-a-hashtable-by-a-col/37635938#37635938
 
