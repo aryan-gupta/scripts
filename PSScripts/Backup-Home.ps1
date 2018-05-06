@@ -18,6 +18,12 @@ $log = "${DRIVE_LTR}:\logs\$(Get-Date -Format FileDate).log"
 #echo $destination
 #echo $log
 
+
+function unmount-exit {
+	Remove-PSDrive -Name B
+	Exit
+}
+
 . $CREDLOC
 
 Add-Type -AssemblyName System.Windows.Forms
@@ -42,7 +48,7 @@ if (-not (Test-Path -Path 'B:\')) {
 	$PopUp.Visible = $true
 	$PopUp.ShowBalloonTip(5000)
 	
-	Exit
+	unmount-exit
 }
 
 if (-not (Test-Path $log)) {
@@ -56,7 +62,7 @@ if (-not (Test-Path $log)) {
 	$PopUp.Visible = $true
 	$PopUp.ShowBalloonTip(500)
 	
-	Exit
+	unmount-exit
 }
 
 if (-not (Test-Path $destination)) {
@@ -86,4 +92,4 @@ $PopUp.BalloonTipTitle = 'Backup finished'
 $PopUp.Visible = $true
 $PopUp.ShowBalloonTip(500)
 
-Remove-PSDrive -Name B
+unmount-exit;
