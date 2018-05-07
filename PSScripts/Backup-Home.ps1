@@ -24,8 +24,9 @@ $backup_root = '\\' + $BACKUP_SERVER + '.' + $DOMAIN_SUFFIX + '\' + $BACKUP_SHAR
 
 # echo $backup_root
 
-$password = $graviton.Password | ConvertTo-SecureString -asPlainText -Force
-$credential = New-Object System.Management.Automation.PSCredential($graviton.Username, $password)
+$server_cred = Get-Variable -Name $BACKUP_SERVER -ValueOnly
+$password = $server_cred.Password | ConvertTo-SecureString -asPlainText -Force
+$credential = New-Object System.Management.Automation.PSCredential($server_cred.Username, $password)
 
 New-PSDrive -Name $DRIVE_LTR -PSProvider Filesystem -Root $backup_root -Persist -Credential $credential -ErrorAction SilentlyContinue | Out-Null
 
