@@ -18,8 +18,8 @@ $DNS_DIR    = 'Program Files\ISC BIND 9\etc\master\db'
 $PS_DATA_DIR = "$ENV:Home\Documents\PSData"
 $DRIVE_LTR = 'T'
 
-$DNS_DB = 'db.gempi.re.test'
-$DNS_REVDB = 'db.0.168.192.in-addr.arpa'
+$DNS_DB = 'gempi.re.db'
+$DNS_REVDB = '0.168.192.in-addr.arpa.db'
 
 $DOMAIN_SUFFIX = 'gempi.re'
 
@@ -43,7 +43,7 @@ $fwddb = $DRIVE_LTR + ':\' + $DNS_DB
 $start = $false # this bool variable states when we should start parsing the file
 # the file starts of with TTL and Serial data that we want to skip
 $exists = $false
-$lastByteNew = $IP.GetAddressBytes()[3]
+$lastByteNew = $IP.getAddressBytes()[3]
 $dbcontent = Get-Content -Path $fwddb
 
 # Prechecks
@@ -101,7 +101,7 @@ foreach ($line in $dbcontent) {
 		# split it by period to get the last octet/byte then convert it to a int
 		
 		if ($lastByteExisting -gt $lastByteNew) { #insert new record
-			$newContent += $Name + '     IN      ' + $Type + '       ' + $IP.toString() + "`n"
+			$newContent += $Name + '     IN      ' + $Type + '       ' + $IP.toString() + "`r`n"
 			$start = $false
 			$sline[0] = '' # this is so the if statement later doesn't break
 			# this variable wont be updated anymore, so we need this so it doesnt skip
@@ -114,21 +114,23 @@ foreach ($line in $dbcontent) {
 	
 	if ($exists) { # if it exists we also want to remove the old line
 		if ($sline[0] -ne $Name) {
-			$newContent += $line + "`n" # add other stuff, skip line with old host
+			$newContent += $line + "`r`n" # add other stuff, skip line with old host
 		}
 	} else {
-		$newContent += $line + "`n"
+		$newContent += $line + "`r`n"
 	}
 }
 
-if (-not $added) { $newContent += $Name + '     IN      ' + $Type + '       ' + $IP.toString() + "`n" }
+if (-not $added) { $newContent += $Name + '     IN      ' + $Type + '       ' + $IP.toString() + "`r`n" }
 
-$newContent | Write-Host
-# $newContent | Out-File $fwddb
+# $newContent | Write-Host
+# https://stackoverflow.com/questions/5596982/using-powershell-to-write-a-file-in-utf-8-without-the-bom
+ $newContent | Out-File $fwddb -Encoding ASCII # This writes the file in UTF8-BOM
+# [System.IO.File]::WriteAllLines($fwddb, $newContent)
 
 # we just added our forward dns info, now reverse dns
 
-$revdb = DRIVE_LTR + ':\' + $DNS_REVDB
+$revdb = $DRIVE_LTR + ':\' + $DNS_REVDB
 $dbcontent = Get-Content -Path $revdb
 $start = $false
 $newContent = '' # I want to organize the entries by increasing ip number
@@ -146,7 +148,7 @@ foreach ($line in $dbcontent) {
 		# split it by period to get the last octet/byte then convert it to a int
 		
 		if ($lastByteExisting -gt $lastByteNew) { #insert new record
-			$newContent += $Name + '     IN      ' + $Type + '       ' + $IP.toString() + "`n"
+			$newContent += [string]($IP.getAddressBytes()[3]) + '     IN      PTR        ' + ($Name + '.' + $DOMAIN_SUFFIX + '.') + "`r`n"
 			$start = $false
 			$sline[0] = '' # this is so the if statement later doesn't break
 			# this variable wont be updated anymore, so we need this so it doesnt skip
@@ -159,9 +161,16 @@ foreach ($line in $dbcontent) {
 	
 	if ($exists) { # if it exists we also want to remove the old line
 		if ($sline[0] -ne $Name) {
-			$newContent += $line + "`n" # add other stuff, skip line with old host
+			$newContent += $line + "`r`n" # add other stuff, skip line with old host
 		}
 	} else {
-		$newContent += $line + "`n"
+		$newContent += $line + "`r`n"
 	}
 }
+
+if (-not $added) { $newContent += [string]($IP.getAddressBytes()[3]) + '     IN      PTR        ' + ($Name + '.' + $DOMAIN_SUFFIX + '.') + "`r`n" }
+
+$newContent | Out-File $revdb -Encoding ASCII
+# [System.IO.File]::WriteAllLines($revdb, $newContent);
+
+Invoke-Command -ComputerName $($DNS_SERVER + '.' + $DOMAIN_SUFFIX) -Command { Restart-Service -Name 'ISC BIND' } -Credential $credential
