@@ -52,6 +52,7 @@ $apps = @(
     "king.com.BubbleWitch3Saga"
     "king.com.CandyCrushSodaSaga"
     "A278AB0D.MarchofEmpires"
+	"*Disney*"
 
     # apps which cannot be removed using Remove-AppxPackage
     #"Microsoft.BioEnrollment"

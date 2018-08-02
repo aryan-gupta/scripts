@@ -28,7 +28,8 @@ $server_cred = Get-Variable -Name $BACKUP_SERVER -ValueOnly
 $password = $server_cred.Password | ConvertTo-SecureString -asPlainText -Force
 $credential = New-Object System.Management.Automation.PSCredential($server_cred.Username, $password)
 
-New-PSDrive -Name $DRIVE_LTR -PSProvider Filesystem -Root $backup_root -Persist -Credential $credential -ErrorAction SilentlyContinue | Out-Null
+#New-PSDrive -Name $DRIVE_LTR -PSProvider Filesystem -Root $backup_root -Persist -Credential $credential -ErrorAction SilentlyContinue | Out-Null
+New-PSDrive -Name $DRIVE_LTR -PSProvider Filesystem -Root '\\192.168.0.5\Backups' -Persist -Credential $credential -ErrorAction SilentlyContinue | Out-Null
 
 function unmount-exit {
 	Remove-PSDrive -Name B
