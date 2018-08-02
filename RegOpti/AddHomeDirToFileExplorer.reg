@@ -1,7 +1,7 @@
 Windows Registry Editor Version 5.00
 
 [HKEY_CLASSES_ROOT\CLSID\{8f82c18d-c7f8-47bb-8e87-8d281b5b0dac}]
-@="Aryan (home)"
+@="Aryan"
 "DescriptionID"=dword:00000003
 "Infotip"="Home Folder"
 "System.IsPinnedToNameSpaceTree"=dword:00000001

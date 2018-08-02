@@ -16,6 +16,9 @@ foreach ($feature in $featuresOff) {
 
 $featuresOn = @(
 	"NetFx3"
+	"NetFx4"
+	"Microsoft-Windows-Subsystem-Linux"
+	
 )
 
 foreach ($feature in $featuresOn) {
