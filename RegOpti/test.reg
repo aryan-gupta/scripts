@@ -1,0 +1,12 @@
+Windows Registry Editor Version 5.00
+
+[HKEY_CLASSES_ROOT\CLSID\{8f82c18d-c7f8-47bb-8e87-8d281b5b0dac}\Instance\InitPropertyBag]
+"TargetFolderPath"="C:\\Users\\Aryan"
+
+
+;; [HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows Defender\MpEngine]
+;; "MpEnablePus"=00, FF, 12, 4F, 5F \
+;; FF, FF, FF \
+;; FF, FF, FF
+;; "Test"="Hello"
+;; "Attributes"=dword:00000011
