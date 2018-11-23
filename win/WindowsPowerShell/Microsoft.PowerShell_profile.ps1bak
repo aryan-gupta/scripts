@@ -1,0 +1,10 @@
+# Set alias so edit opens npp
+New-Alias npp "C:\Program Files\Notepad++\notepad++.exe"
+
+New-Alias op Open-Project
+
+New-Alias nf New-Folder
+
+New-Alias restart Restart-Powershell
+
+
