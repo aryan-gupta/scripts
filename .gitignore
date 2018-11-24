@@ -1,3 +1,5 @@
+__pycache__
+
 tmp/
 osi/token.json
 osi/credentials.json
