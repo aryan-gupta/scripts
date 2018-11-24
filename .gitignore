@@ -5,4 +5,5 @@ osi/credentials.json
 # Directory tmp files for Dolphin
 .directory
 
-win/PSData/*
+win/PSData/
+win/WindowsPowerShell/Modules/posh-git/
