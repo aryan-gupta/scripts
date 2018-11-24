@@ -1,3 +1,8 @@
 tmp/
 osi/token.json
 osi/credentials.json
+
+# Directory tmp files for Dolphin
+.directory
+
+win/PSData/*
