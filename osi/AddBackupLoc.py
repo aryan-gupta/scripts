@@ -9,9 +9,9 @@ from sys import argv
 
 host = "local@higgs.gempi.re"
 database = "backup"
-bhost = "higgs"
+bhost = "sftp://higgs.gempi.re"
 broot = "/run/sdcard/"
-bloc = bhost + ':' + broot
+bloc = bhost + broot
 
 def create_table_if_null(db, hostname):
 	cur = db.cursor()
@@ -42,9 +42,6 @@ def add_location(db, hostname, src, dest, uname, gname, access):
 		"{gname}",
 		{access}
 	);"""
-
-	print(q)
-	return
 
 	cursor = db.cursor()
 	cursor.execute(q)
@@ -83,12 +80,10 @@ if __name__ == '__main__':
 	src = path.abspath(argv[1].replace('\\', '/'))
 	if (len(argv) == 2): # if no dest then create the destination using source
 		dest = f"{bloc}{gethostname()}{src}"
-	else: # make sure dest is up to spec (higgs:/run/sdcard/<src>)
+	else: # make sure dest is up to spec (higgs/run/sdcard/<src>)
 		dest = argv[2].replace('\\', '/')
-		if dest.startswith(bloc):
-			pass
-		else:
-			dest = bhost + ':' + path.join(broot, dest)
+		if not dest.startswith(bloc):
+			dest = bhost + path.join(broot, dest)
 
 	# print(src, dest)
 	add(src, dest)
