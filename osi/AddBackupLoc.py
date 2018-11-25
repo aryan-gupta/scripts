@@ -66,7 +66,7 @@ def get_file_details(filename):
 	)
 
 def loc_exists(db, hostname, src, dest):
-	q = f"""SELECT src, dest FROM {hostname} WHERE src='{src} AND dest='{dest}'"""
+	q = f"""SELECT src, dest FROM {hostname} WHERE src='{src}' AND dest='{dest}'"""
 	cursor = db.cursor()
 	cursor.execute(q)
 	response = cursor.fetchall()
@@ -81,7 +81,7 @@ def add(src, dest):
 	if not loc_exists(db, hostname, src, dest):
 		user, group, access = get_file_details(src)
 		add_location(db, hostname, src, dest, user, group, access)
-	else 
+	else: 
 		print("[E] Location already exits")
 
 if __name__ == '__main__':
