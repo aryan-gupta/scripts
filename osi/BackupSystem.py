@@ -26,7 +26,7 @@ def get_backup_locations(db, hostname):
 	cur.execute(q)
 	result = cur.fetchall()
 	ret_val = []
-	for lst in result:
+	for lst in result: # convert response into a list of touples
 		ret_val.append((lst[0], lst[1]))
 	return ret_val
 
