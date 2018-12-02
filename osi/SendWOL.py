@@ -42,6 +42,10 @@ def load_config(host):
 	cur = db.cursor()
 	cur.execute(f"SELECT mac FROM static WHERE host = '{host}'")
 	result = cur.fetchall()
+	
+	if not result:
+		print(f"[E] host `{host}' does not exist")
+		raise SystemExit()
 
 	return result[0][0]
 
