@@ -1,0 +1,19 @@
+This command creates a sparse file of size 8GiB
+     truncate -s 8GiB .private.crypt
+
+This command formats the device as a Excrypted device
+     cryptsetup luksFormat --type luks2 .private.crypt
+
+This command mounts the device at /dev/mapper
+     sudo cryptsetup open .private.crypt private
+
+This command formats the loop device as ext4
+     sudo mkfs.ext4 /dev/mapper/private
+
+This command mounts the device at ~/Private
+     sudo mount /dev/mapper/private ~/Private
+
+This command makes the user the owner of the new FS
+     cd ~/Private
+     sudo chown aryan:wheel . 
+
