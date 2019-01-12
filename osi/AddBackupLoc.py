@@ -9,9 +9,9 @@ from sys import argv
 
 host = "local@higgs.gempi.re"
 database = "backup"
-bhost = "higgs"
+bhost = "sftp://higgs.gempi.re"
 broot = "/run/sdcard/"
-bloc = bhost + ':' + broot
+bloc = bhost + broot
 
 def create_table_if_null(db, hostname):
 	cur = db.cursor()
@@ -34,7 +34,7 @@ def create_table_if_null(db, hostname):
 		cur.execute(q)
 
 def add_location(db, hostname, src, dest, uname, gname, access):
-	# print(f"[I] Adding `{src}' to list of backup locations")
+	print(f"[I] Adding `{src}' to list of backup locations")
 	q = f"""INSERT INTO {hostname} (src, dest, uname, gname, access) VALUES (
 		"{src}",
 		"{dest}",
@@ -42,9 +42,6 @@ def add_location(db, hostname, src, dest, uname, gname, access):
 		"{gname}",
 		{access}
 	);"""
-
-	print(q)
-	return
 
 	cursor = db.cursor()
 	cursor.execute(q)
@@ -68,13 +65,24 @@ def get_file_details(filename):
 		int(s.st_mode & 0o777)
 	)
 
+def loc_exists(db, hostname, src, dest):
+	q = f"""SELECT src, dest FROM {hostname} WHERE src='{src}' AND dest='{dest}'"""
+	cursor = db.cursor()
+	cursor.execute(q)
+	response = cursor.fetchall()
+
+	return response
+
 def add(src, dest):
 	hostname = gethostname()
 
 	db = get_database()
 	create_table_if_null(db, hostname) # Create our table is there is none
-	user, group, access = get_file_details(src)
-	add_location(db, hostname, src, dest, user, group, access)
+	if not loc_exists(db, hostname, src, dest):
+		user, group, access = get_file_details(src)
+		add_location(db, hostname, src, dest, user, group, access)
+	else: 
+		print("[E] Location already exits")
 
 if __name__ == '__main__':
 	if (len(argv) <= 1): # need at least source
@@ -83,12 +91,10 @@ if __name__ == '__main__':
 	src = path.abspath(argv[1].replace('\\', '/'))
 	if (len(argv) == 2): # if no dest then create the destination using source
 		dest = f"{bloc}{gethostname()}{src}"
-	else: # make sure dest is up to spec (higgs:/run/sdcard/<src>)
+	else: # make sure dest is up to spec (higgs/run/sdcard/<src>)
 		dest = argv[2].replace('\\', '/')
-		if dest.startswith(bloc):
-			pass
-		else:
-			dest = bhost + ':' + path.join(broot, dest)
+		if not dest.startswith(bloc):
+			dest = bhost + path.join(broot, dest)
 
 	# print(src, dest)
 	add(src, dest)
