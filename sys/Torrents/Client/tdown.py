@@ -19,7 +19,7 @@ def get_connection():
 	connection.connect(hostname = host, username = user)
 
 	# Excersize caution when using this command.
-	# connection.save_host_keys(os.path.expanduser("~\.ssh\known_hosts"))
+	# connection.save_host_keys(os.path.expanduser("~/.ssh/known_hosts"))
 
 	return connection
 
@@ -38,7 +38,7 @@ def get_magnet(url):
 
 if __name__ == '__main__':
 	svr = get_connection()
-	command = "tdownstart " + get_magnet()
+	command = "tdownstart " + get_magnet(sys.argv[1])
 	stdin, stdout, stderr = svr.exec_command(command)
 
 	print(stdout.readlines())
