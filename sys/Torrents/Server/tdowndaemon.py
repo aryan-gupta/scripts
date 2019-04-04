@@ -1,32 +1,24 @@
 import os
 import sys
 import socket
-import signal
-import stat
+
+import protocol as pc
 
 sock_loc = "/tmp/tdowncom.sock"
 
-def signal_handler(sig, frame):
-	sock.close()
-	os.remove(sock_loc)
+def main():
+	if os.path.exists(sock_loc):
+		os.remove(sock_loc)
 
-def read_data(connection):
-	return connection.recv(1024)
+	with socket.socket(socket.AF_UNIX, socket.SOCK_STREAM) as sock:
+		sock.bind(sock_loc)
+		sock.listen()
 
-def send_success(connection):
-	connection.sendall(b"Done")
+		while True:
+			connection, address = sock.accept()
+			message = pc.read_message(connection)
+			print(message)
+			pc.send_message(connection, b'Done')
 
-signal.signal(signal.SIGINT, signal_handler)
-if os.path.exists(sock_loc):
-	os.remove(sock_loc)
-
-with socket.socket(socket.AF_UNIX, socket.SOCK_STREAM) as sock
-	sock.bind(sock_loc)
-	sock.listen()
-
-	while True:
-		connection, address = sock.accept()
-		print("New connection")
-		data1 = read_data(connection)
-		print("recv")
-		send_success(connection)
+if __name__ == '__main__':
+	main()
