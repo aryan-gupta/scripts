@@ -19,7 +19,7 @@ def main():
 			print(msg)
 			sys.exit(1)
 
-		message = b'This is the message. It will be repeated.'
+		message = sys.argv[1].encode() #b'This is the message. It will be repeated.'
 		pc.send_message(sock, message)
 		reply = pc.read_message(sock)
 		print(reply)
