@@ -14,7 +14,7 @@ def read_data(connection, nbytes):
 
 def read_message(connection):
 	header = read_data(connection, HEAD_LEN)
-	msg_len = int.from_bytes(header, byteorder="big")
+	msg_len = int.from_bytes(header, byteorder="big") # https://www.delftstack.com/howto/python/how-to-convert-bytes-to-integers/
 	message = read_data(connection, msg_len)
 	return message
 
@@ -23,3 +23,6 @@ def send_message(connection, message):
 	header = msg_len.to_bytes(HEAD_LEN, byteorder="big")
 	connection.sendall(header)
 	connection.sendall(message)
+
+def check_server(connection):
+	return False # @todo
