@@ -21,6 +21,7 @@ class Server {
 
 	boost::asio::io_context mIOcontext;
 	boost::asio::ip::tcp::acceptor mAcceptor;
+	std::thread mThread;
 	// boost::lockfree::queue<std::string> mQueue;
 
 	static uint32_t parse_header(const std::vector<char>& data);
@@ -30,7 +31,9 @@ public:
 	/// Default c'tor
 	Server();
 
-	void run();
+	~Server();
+
+	void stop();
 
 	/// Return a ref to the io_context
 	boost::asio::io_context& get_context();

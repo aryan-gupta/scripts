@@ -14,14 +14,21 @@ namespace ph = std::placeholders;
 Server::Server()
 	: mIOcontext{  }
 	, mAcceptor{ mIOcontext, ip::tcp::endpoint{ ip::tcp::v4(), mPORT } }
+	, mThread{ [this](){ this->mIOcontext.run(); } }
 	// , mQueue{ 32 }
 {
 	accept();
 }
 
 
-void Server::run() {
-	mIOcontext.run();
+Server::~Server() {
+	stop();
+}
+
+void Server::stop() {
+	if (!mIOcontext.stopped())
+		mIOcontext.stop();
+	mThread.join();
 }
 
 
@@ -111,8 +118,8 @@ void Server::msg_handler(Connection::pointer con, boost_error error, size_t numb
 		std::terminate();
 	}
 
-	std::string str{ con->buffer.begin(), con->buffer.end() };
-	std::cout << str << std::endl;
+	// std::string str{ con->buffer.begin(), con->buffer.end() };
+	// std::cout << str << std::endl;
 
 	con->buffer.clear();
 
