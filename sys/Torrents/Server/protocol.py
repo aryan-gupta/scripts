@@ -26,3 +26,8 @@ def send_message(connection, message):
 
 def check_server(connection):
 	return False # @todo
+
+def get_reply(connection, message):
+	send_message(connection, message.encode())
+	reply = read_message(connection)
+	return reply.decode()

@@ -22,6 +22,9 @@ class Server {
 	boost::asio::ip::tcp::acceptor mAcceptor;
 	// boost::lockfree::queue<std::string> mQueue;
 
+	static uint32_t parse_header(const std::vector<char>& data);
+	static std::vector<char> create_header(uint32_t len);
+
 public:
 	/// Default c'tor
 	Server();

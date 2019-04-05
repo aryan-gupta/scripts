@@ -57,11 +57,29 @@ void Server::connection_handler(Connection::pointer con, boost_error error) {
 		std::terminate();
 	}
 
+	con->buffer.resize(4U);
+
 	asio::async_read(
 		con->socket,
-		asio::buffer(con->buffer, 4),
+		asio::buffer(con->buffer),
 		std::bind(&Server::head_handler, this, con, ph::_1, ph::_2)
 	);
+}
+
+uint32_t Server::parse_header(const std::vector<char>& data) {
+	uint32_t len{  };
+	for (int i = 0; i < 4; ++i) {
+		len = (len << 8) + data[i];
+	}
+	return len;
+}
+
+std::vector<char> Server::create_header(uint32_t len) {
+	std::vector<char> head(4);
+	for (int i = 0; i < 4; ++i) {
+		head[3 - i] = (len >> (8 * i)) bitand 0xFF;
+	}
+	return head;
 }
 
 void Server::head_handler(Connection::pointer con, boost_error error, size_t numb) {
@@ -71,15 +89,13 @@ void Server::head_handler(Connection::pointer con, boost_error error, size_t num
 	}
 
 	// if we are little endian then properly convert big endian data to big endian
-	uint32_t len;
-	std::memcpy(con->buffer.data(), &len, 4);
+	uint32_t len = parse_header(con->buffer);
 
-	con->buffer = "";
-	con->buffer.reserve(len + 1);
+	con->buffer.resize(len);
 
 	asio::async_read(
 		con->socket,
-		asio::buffer(con->buffer, len),
+		asio::buffer(con->buffer),
 		std::bind(&Server::msg_handler, this, con, ph::_1, ph::_2)
 	);
 }
@@ -91,8 +107,19 @@ void Server::msg_handler(Connection::pointer con, boost_error error, size_t numb
 		std::terminate();
 	}
 
-	std::cout << con->buffer << std::endl;
-	con->buffer = "Done";
+	std::string str{ con->buffer.begin(), con->buffer.end() };
+	std::cout << str << std::endl;
+
+	con->buffer.clear();
+
+	auto raw = "Done";
+	size_t len = strlen(raw);
+
+	auto head = create_header(len);
+
+	std::back_insert_iterator it{ con->buffer };
+	std::move(head.begin(), head.end(), it);
+	std::move(raw, raw + len, it);
 
 	asio::async_write(
 		con->socket,
@@ -107,6 +134,8 @@ void Server::end_connection(Connection::pointer con, boost_error error) {
 		// For now
 		std::terminate();
 	}
+	std::cout << "Sent Reply" << std::endl;
+	con->socket.close();
 }
 
 

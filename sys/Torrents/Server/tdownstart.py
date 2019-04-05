@@ -14,11 +14,6 @@ def is_magnet(link):
 def start_daemon():
 	pass # code this
 
-def get_reply(connection, message):
-	pc.send_message(connection, message.encode())
-	reply = pc.read_message(connection)
-	return reply.decode()
-
 def main():
 	if len(sys.argv) < 2:
 		print("Usage: ", sys.argv[0], " <magnet_link>")
@@ -38,7 +33,7 @@ def main():
 			print(msg)
 			sys.exit(1)
 
-		reply = get_reply(sock, link)
+		reply = pc.get_reply(sock, link)
 		if reply == "D":
 			print("Torrent successfully recived")
 
