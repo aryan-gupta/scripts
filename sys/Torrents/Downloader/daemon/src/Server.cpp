@@ -14,8 +14,9 @@ namespace ph = std::placeholders;
 Server::Server()
 	: mIOcontext{  }
 	, mAcceptor{ mIOcontext, ip::tcp::endpoint{ ip::tcp::v4(), mPORT } }
+	, mQLock{  }
+	, mQueue{  }
 	, mThread{ [this](){ this->mIOcontext.run(); } }
-	// , mQueue{ 32 }
 {
 	accept();
 }
@@ -118,8 +119,8 @@ void Server::msg_handler(Connection::pointer con, boost_error error, size_t numb
 		std::terminate();
 	}
 
-	// std::string str{ con->buffer.begin(), con->buffer.end() };
-	// std::cout << str << std::endl;
+	std::string link{ con->buffer.begin(), con->buffer.end() };
+	add_magnet(link);
 
 	con->buffer.clear();
 
@@ -149,11 +150,19 @@ void Server::end_connection(Connection::pointer con, boost_error error) {
 }
 
 
-void Server::add_magnet(std::string link) {
-
+void Server::add_magnet(std::string& link) {
+	std::unique_lock<std::mutex> lk{ mQLock };
+	mQueue.push(link);
 }
 
 
 std::optional<std::string> Server::try_pop_magnet() {
-	return {  };
+	std::unique_lock<std::mutex> lk{ mQLock };
+	if (mQueue.empty()) {
+		return {  };
+	} else {
+		std::string top = std::move( mQueue.front() );
+		mQueue.pop();
+		return top;
+	}
 }

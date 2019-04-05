@@ -4,6 +4,8 @@
 #include <atomic>
 #include <string>
 #include <optional>
+#include <mutex>
+#include <queue>
 
 #include <boost/asio.hpp>
 #include <boost/lockfree/queue.hpp>
@@ -21,8 +23,9 @@ class Server {
 
 	boost::asio::io_context mIOcontext;
 	boost::asio::ip::tcp::acceptor mAcceptor;
+	std::mutex mQLock;
+	std::queue<std::string> mQueue;
 	std::thread mThread;
-	// boost::lockfree::queue<std::string> mQueue;
 
 	static uint32_t parse_header(const std::vector<char>& data);
 	static std::vector<char> create_header(uint32_t len);
@@ -60,7 +63,7 @@ public:
 	void stop();
 
 	/// Adds a magnet link
-	void add_magnet(std::string link);
+	void add_magnet(std::string& link);
 
 	/// Trys to pop a magnet link from the queue. If the queue is empty, it will
 	/// return nothing
