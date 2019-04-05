@@ -42,6 +42,7 @@ Connection::pointer Server::create_connection() {
 
 void Server::accept() {
 	Connection::pointer con = create_connection();
+
 	mAcceptor.async_accept(
 		con->socket,
 		std::bind(&Server::connection_handler, this, con, ph::_1)
@@ -57,7 +58,7 @@ void Server::connection_handler(Connection::pointer con, boost_error error) {
 		std::terminate();
 	}
 
-	con->buffer.resize(4U);
+	con->buffer.resize(mHEADER_LEN);
 
 	asio::async_read(
 		con->socket,
@@ -68,15 +69,18 @@ void Server::connection_handler(Connection::pointer con, boost_error error) {
 
 uint32_t Server::parse_header(const std::vector<char>& data) {
 	uint32_t len{  };
-	for (int i = 0; i < 4; ++i) {
+	for (short i = 0; i < mHEADER_LEN; ++i) {
 		len = (len << 8) + data[i];
 	}
 	return len;
 }
 
 std::vector<char> Server::create_header(uint32_t len) {
+	// char buff[sizeof(len)];
+	// std::memcpy(buff, &len, sizeof(len));
+	// std::vector<char> head{ buff, buff + sizeof(len) };
 	std::vector<char> head(4);
-	for (int i = 0; i < 4; ++i) {
+	for (int i = 0; i < mHEADER_LEN; ++i) {
 		head[3 - i] = (len >> (8 * i)) bitand 0xFF;
 	}
 	return head;
@@ -134,7 +138,6 @@ void Server::end_connection(Connection::pointer con, boost_error error) {
 		// For now
 		std::terminate();
 	}
-	std::cout << "Sent Reply" << std::endl;
 	con->socket.close();
 }
 

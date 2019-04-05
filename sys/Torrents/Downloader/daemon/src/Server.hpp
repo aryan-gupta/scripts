@@ -15,6 +15,7 @@
 /// and will store magnet links it gets
 class Server {
 	static constexpr unsigned short mPORT = 29628;
+	static constexpr unsigned short mHEADER_LEN = 4;
 
 	using boost_error = const boost::system::error_code&;
 

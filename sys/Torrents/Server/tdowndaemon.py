@@ -18,8 +18,9 @@ def manage_connection(connection, address):
 	# Create connection with other server and start
 	with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as sock:
 		sock.connect(("127.0.0.1", 29628))
-		reply = pc.get_reply(sock, "We got here")
-		print(reply)
+		reply = pc.get_reply(sock, message)
+		if reply != "Done":
+			raise RuntimeError("Server sent faulty message")
 
 def check_exclusivity(location):
 	""" If the path exists and we cant communicate with the main daemon
