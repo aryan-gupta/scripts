@@ -43,7 +43,7 @@ unsigned short Server::get_port() {
 
 
 Connection::pointer Server::create_connection() {
-	return Connection::pointer{ new Connection{ this } };
+	return Connection::pointer{ new Connection{ mIOcontext } };
 }
 
 

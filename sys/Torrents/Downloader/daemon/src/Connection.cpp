@@ -7,7 +7,7 @@
 namespace ip = boost::asio::ip;
 namespace asio = boost::asio;
 
-Connection::Connection(Server* svr)
-	: socket{ svr->get_context() }
+Connection::Connection(asio::io_context& io)
+	: socket{ io }
 	, buffer{ }
 	{  }

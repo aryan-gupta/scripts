@@ -16,5 +16,5 @@ struct Connection {
 	std::vector<byte> buffer;
 
 	Connection() = delete;
-	Connection(Server* svr);
+	Connection(boost::asio::io_context& io);
 };

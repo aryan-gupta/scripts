@@ -27,14 +27,6 @@ class Server {
 	static uint32_t parse_header(const std::vector<char>& data);
 	static std::vector<char> create_header(uint32_t len);
 
-public:
-	/// Default c'tor
-	Server();
-
-	~Server();
-
-	void stop();
-
 	/// Return a ref to the io_context
 	boost::asio::io_context& get_context();
 
@@ -58,6 +50,14 @@ public:
 
 	/// Ends the connection to the client
 	void end_connection(Connection::pointer con, boost_error error);
+
+public:
+	/// Default c'tor
+	Server();
+
+	~Server();
+
+	void stop();
 
 	/// Adds a magnet link
 	void add_magnet(std::string link);
