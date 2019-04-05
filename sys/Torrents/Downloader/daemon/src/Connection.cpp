@@ -8,6 +8,6 @@ namespace ip = boost::asio::ip;
 namespace asio = boost::asio;
 
 Connection::Connection(Server* svr)
-	: socket{ svr->get_context(), ip::tcp::endpoint{ ip::tcp::v4(), svr->get_port() } }
+	: socket{ svr->get_context() }
 	, buffer{ }
 	{  }

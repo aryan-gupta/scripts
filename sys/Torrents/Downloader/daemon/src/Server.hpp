@@ -14,19 +14,13 @@
 /// to store magnet links it gets. This server will run on one thread
 /// and will store magnet links it gets
 class Server {
-	static constexpr std::string_view mSERVER = "higgs.gempi.re";
-	static constexpr unsigned short mPORT = 4132;
+	static constexpr unsigned short mPORT = 29628;
 
 	using boost_error = const boost::system::error_code&;
 
 	boost::asio::io_context mIOcontext;
 	boost::asio::ip::tcp::acceptor mAcceptor;
 	// boost::lockfree::queue<std::string> mQueue;
-
-	// using iterator = boost::asio::buffers_iterator<boost::asio::const_buffers_1>;
-	// using iterator = boost::asio::buffers_iterator<boost::asio::const_buffer>;
-	// using iterator = boost::asio::buffers_iterator<boost::asio::streambuf::const_buffers_type>;
-	// static std::pair<iterator, bool> header_match(iterator begin, iterator end);
 
 public:
 	/// Default c'tor

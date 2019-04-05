@@ -13,7 +13,7 @@ namespace ph = std::placeholders;
 
 Server::Server()
 	: mIOcontext{  }
-	, mAcceptor{ mIOcontext }
+	, mAcceptor{ mIOcontext, ip::tcp::endpoint{ ip::tcp::v4(), mPORT } }
 	// , mQueue{ 32 }
 {
 	accept();
@@ -23,12 +23,6 @@ Server::Server()
 void Server::run() {
 	mIOcontext.run();
 }
-
-
-// auto Server::header_match(iterator begin, iterator end) -> std::pair<iterator, bool> {
-// 	if (std::distance(begin, end) == 4) return std::make_pair(begin, true);
-// 	else return std::make_pair(begin, false);
-// }
 
 
 asio::io_context& Server::get_context() {
