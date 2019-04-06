@@ -17,14 +17,33 @@ Server::Server()
 	, mQLock{  }
 	, mQueue{  }
 	, mThread{ [this](){ this->mIOcontext.run(); } }
-{
-	accept();
+{ start_accept(); }
+
+
+Server::~Server()
+{ stop(); }
+
+
+uint32_t Server::parse_header(const buffer_type& data) {
+	uint32_t len{  };
+	for (short i = 0; i < mHEADER_LEN; ++i) {
+		len = (len << 8) + data[i];
+	}
+	return len;
 }
 
 
-Server::~Server() {
-	stop();
+auto Server::create_header(uint32_t len) -> buffer_type {
+	// char buff[sizeof(len)];
+	// std::memcpy(buff, &len, sizeof(len));
+	// buffer_type head{ buff, buff + sizeof(len) };
+	buffer_type head(4);
+	for (int i = 0; i < mHEADER_LEN; ++i) {
+		head[3 - i] = (len >> (8 * i)) bitand 0xFF;
+	}
+	return head;
 }
+
 
 void Server::stop() {
 	if (!mIOcontext.stopped())
@@ -33,23 +52,13 @@ void Server::stop() {
 }
 
 
-asio::io_context& Server::get_context() {
-	return mIOcontext;
+auto Server::create_connection() -> connection_ptr {
+	return connection_ptr{ new Connection{ mIOcontext } };
 }
 
 
-unsigned short Server::get_port() {
-	return mPORT;
-}
-
-
-Connection::pointer Server::create_connection() {
-	return Connection::pointer{ new Connection{ mIOcontext } };
-}
-
-
-void Server::accept() {
-	Connection::pointer con = create_connection();
+void Server::start_accept() {
+	connection_ptr con = create_connection();
 
 	mAcceptor.async_accept(
 		con->socket,
@@ -58,8 +67,8 @@ void Server::accept() {
 }
 
 
-void Server::connection_handler(Connection::pointer con, boost_error error) {
-	accept(); // start new accept while we deal with this connection
+void Server::connection_handler(connection_ptr con, boost_error error) {
+	start_accept(); // start new accept while we deal with this connection
 
 	if (error) {
 		// For now
@@ -71,30 +80,11 @@ void Server::connection_handler(Connection::pointer con, boost_error error) {
 	asio::async_read(
 		con->socket,
 		asio::buffer(con->buffer),
-		std::bind(&Server::head_handler, this, con, ph::_1, ph::_2)
+		std::bind(&Server::header_handler, this, con, ph::_1, ph::_2)
 	);
 }
 
-uint32_t Server::parse_header(const std::vector<char>& data) {
-	uint32_t len{  };
-	for (short i = 0; i < mHEADER_LEN; ++i) {
-		len = (len << 8) + data[i];
-	}
-	return len;
-}
-
-std::vector<char> Server::create_header(uint32_t len) {
-	// char buff[sizeof(len)];
-	// std::memcpy(buff, &len, sizeof(len));
-	// std::vector<char> head{ buff, buff + sizeof(len) };
-	std::vector<char> head(4);
-	for (int i = 0; i < mHEADER_LEN; ++i) {
-		head[3 - i] = (len >> (8 * i)) bitand 0xFF;
-	}
-	return head;
-}
-
-void Server::head_handler(Connection::pointer con, boost_error error, size_t numb) {
+void Server::header_handler(connection_ptr con, boost_error error, size_t numb) {
 	if (error) {
 		// For now
 		std::terminate();
@@ -108,19 +98,19 @@ void Server::head_handler(Connection::pointer con, boost_error error, size_t num
 	asio::async_read(
 		con->socket,
 		asio::buffer(con->buffer),
-		std::bind(&Server::msg_handler, this, con, ph::_1, ph::_2)
+		std::bind(&Server::message_handler, this, con, ph::_1, ph::_2)
 	);
 }
 
 
-void Server::msg_handler(Connection::pointer con, boost_error error, size_t numb) {
+void Server::message_handler(connection_ptr con, boost_error error, size_t numb) {
 	if (error) {
 		// For now
 		std::terminate();
 	}
 
 	std::string link{ con->buffer.begin(), con->buffer.end() };
-	add_magnet(link);
+	add_message(link);
 
 	con->buffer.clear();
 
@@ -141,7 +131,7 @@ void Server::msg_handler(Connection::pointer con, boost_error error, size_t numb
 }
 
 
-void Server::end_connection(Connection::pointer con, boost_error error) {
+void Server::end_connection(connection_ptr con, boost_error error) {
 	if (error) {
 		// For now
 		std::terminate();
@@ -150,14 +140,14 @@ void Server::end_connection(Connection::pointer con, boost_error error) {
 }
 
 
-void Server::add_magnet(std::string& link) {
-	std::unique_lock<std::mutex> lk{ mQLock };
+void Server::add_message(std::string& link) {
+	unique_lock lk{ mQLock };
 	mQueue.push(link);
 }
 
 
-std::optional<std::string> Server::try_pop_magnet() {
-	std::unique_lock<std::mutex> lk{ mQLock };
+std::optional<std::string> Server::try_pop_message() {
+	unique_lock lk{ mQLock };
 	if (mQueue.empty()) {
 		return {  };
 	} else {
@@ -165,4 +155,10 @@ std::optional<std::string> Server::try_pop_magnet() {
 		mQueue.pop();
 		return top;
 	}
+}
+
+
+size_t Server::get_size() {
+	unique_lock lk{ mQLock };
+	return mQueue.size();
 }

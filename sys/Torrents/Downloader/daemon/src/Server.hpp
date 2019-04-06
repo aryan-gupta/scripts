@@ -20,53 +20,57 @@ class Server {
 	static constexpr unsigned short mHEADER_LEN = 4;
 
 	using boost_error = const boost::system::error_code&;
+	using buffer_type = Connection::buffer_type;
+	using connection_ptr = Connection::pointer;
+	using unique_lock = std::unique_lock<std::mutex>;
 
-	boost::asio::io_context mIOcontext;
-	boost::asio::ip::tcp::acceptor mAcceptor;
-	std::mutex mQLock;
-	std::queue<std::string> mQueue;
-	std::thread mThread;
+	boost::asio::io_context mIOcontext; //< IO context for IO
+	boost::asio::ip::tcp::acceptor mAcceptor; //< Acceptor for new incoming connections
+	std::mutex mQLock; //< Lock to protect Queue
+	std::queue<std::string> mQueue; //< Queue of messages
+	std::thread mThread; //< Thread for server
 
-	static uint32_t parse_header(const std::vector<char>& data);
-	static std::vector<char> create_header(uint32_t len);
+	/// Parsed a header from communication
+	static uint32_t parse_header(const buffer_type& data);
 
-	/// Return a ref to the io_context
-	boost::asio::io_context& get_context();
+	/// Craetes a header for comunication
+	static buffer_type create_header(uint32_t len);
 
-	/// Returns the port this server is listening to
-	unsigned short get_port();
+	/// Adds a magnet link
+	void add_message(std::string& link);
 
 	/// Creates a connection
-	Connection::pointer create_connection();
+	connection_ptr create_connection();
 
 	/// Async accept a connection
-	void accept();
+	void start_accept();
 
-	/// Handles a connection
-	void connection_handler(Connection::pointer con, boost_error error);
+	/// Handles a connection and sets up async read header
+	void connection_handler(connection_ptr con, boost_error error);
 
-	///
-	void head_handler(Connection::pointer con, boost_error error, size_t numb);
+	/// Reads in header and sets up async read message
+	void header_handler(connection_ptr con, boost_error error, size_t numb);
 
-	/// Handles a message
-	void msg_handler(Connection::pointer con, boost_error error, size_t numb);
+	/// Handles a message and async sends reply to close
+	void message_handler(connection_ptr con, boost_error error, size_t numb);
 
 	/// Ends the connection to the client
-	void end_connection(Connection::pointer con, boost_error error);
+	void end_connection(connection_ptr con, boost_error error);
 
 public:
 	/// Default c'tor
 	Server();
 
+	// Destroys the server
 	~Server();
 
+	/// Stops the server
 	void stop();
-
-	/// Adds a magnet link
-	void add_magnet(std::string& link);
 
 	/// Trys to pop a magnet link from the queue. If the queue is empty, it will
 	/// return nothing
-	std::optional<std::string> try_pop_magnet();
+	std::optional<std::string> try_pop_message();
+
+	size_t get_size();
 
 };
