@@ -6,6 +6,7 @@
 
 #include "Server.hpp"
 #include "Connection.hpp"
+#include "main.hpp"
 
 namespace ip = boost::asio::ip;
 namespace asio = boost::asio;
@@ -34,9 +35,6 @@ uint32_t Server::parse_header(const buffer_type& data) {
 
 
 auto Server::create_header(uint32_t len) -> buffer_type {
-	// char buff[sizeof(len)];
-	// std::memcpy(buff, &len, sizeof(len));
-	// buffer_type head{ buff, buff + sizeof(len) };
 	buffer_type head(4);
 	for (int i = 0; i < mHEADER_LEN; ++i) {
 		head[3 - i] = (len >> (8 * i)) bitand 0xFF;
@@ -71,9 +69,7 @@ void Server::connection_handler(connection_ptr con, boost_error error) {
 	start_accept(); // start new accept while we deal with this connection
 
 	if (error) {
-		std::cerr << "[E] Type: " << error.category().name() << std::endl;
-		std::cerr << "[E] Value: " << error.value() << std::endl;
-		std::cerr << "[E] Messsage: " << error.message() << std::endl;
+		print_boost_error(error);
 		std::terminate();
 	}
 
@@ -88,9 +84,7 @@ void Server::connection_handler(connection_ptr con, boost_error error) {
 
 void Server::header_handler(connection_ptr con, boost_error error, size_t numb) {
 	if (error) {
-		std::cerr << "[E] Type: " << error.category().name() << std::endl;
-		std::cerr << "[E] Value: " << error.value() << std::endl;
-		std::cerr << "[E] Messsage: " << error.message() << std::endl;
+		print_boost_error(error);
 		std::terminate();
 	}
 
@@ -109,9 +103,7 @@ void Server::header_handler(connection_ptr con, boost_error error, size_t numb) 
 
 void Server::message_handler(connection_ptr con, boost_error error, size_t numb) {
 	if (error) {
-		std::cerr << "[E] Type: " << error.category().name() << std::endl;
-		std::cerr << "[E] Value: " << error.value() << std::endl;
-		std::cerr << "[E] Messsage: " << error.message() << std::endl;
+		print_boost_error(error);
 		std::terminate();
 	}
 
@@ -139,9 +131,7 @@ void Server::message_handler(connection_ptr con, boost_error error, size_t numb)
 
 void Server::end_connection(connection_ptr con, boost_error error) {
 	if (error) {
-		std::cerr << "[E] Type: " << error.category().name() << std::endl;
-		std::cerr << "[E] Value: " << error.value() << std::endl;
-		std::cerr << "[E] Messsage: " << error.message() << std::endl;
+		print_boost_error(error);
 		std::terminate();
 	}
 	con->socket.close();
