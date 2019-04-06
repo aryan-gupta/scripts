@@ -12,6 +12,12 @@ namespace ip = boost::asio::ip;
 namespace asio = boost::asio;
 namespace ph = std::placeholders;
 
+namespace {
+	static constexpr unsigned short mPORT = 29628;
+	static constexpr unsigned short mHEADER_LEN = 4;
+	const Connection::buffer_type mFIN = { 0, 0, 0, 3, 'F', 'I', 'N' };
+}
+
 Server::Server()
 	: mIOcontext{  }
 	, mAcceptor{ mIOcontext, ip::tcp::endpoint{ ip::tcp::v4(), mPORT } }
@@ -111,15 +117,7 @@ void Server::message_handler(connection_ptr con, boost_error error, size_t numb)
 	add_message(link);
 
 	con->buffer.clear();
-
-	auto raw = "Done";
-	size_t len = strlen(raw);
-
-	auto head = create_header(len);
-
-	std::back_insert_iterator it{ con->buffer };
-	std::move(head.begin(), head.end(), it);
-	std::move(raw, raw + len, it);
+	con->buffer = mFIN;
 
 	asio::async_write(
 		con->socket,

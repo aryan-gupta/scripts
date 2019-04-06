@@ -16,11 +16,8 @@
 /// to store magnet links it gets. This server will run on one thread
 /// and will store magnet links it gets
 class Server {
-	static constexpr unsigned short mPORT = 29628;
-	static constexpr unsigned short mHEADER_LEN = 4;
-
-	using boost_error = const boost::system::error_code&;
 	using buffer_type = Connection::buffer_type;
+	using boost_error = const boost::system::error_code&;
 	using connection_ptr = Connection::pointer;
 	using unique_lock = std::unique_lock<std::mutex>;
 

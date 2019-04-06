@@ -19,7 +19,7 @@ def manage_connection(connection, address):
 	with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as sock:
 		sock.connect(("127.0.0.1", 29628))
 		reply = pc.get_reply(sock, message)
-		if reply != "Done":
+		if reply != "FIN":
 			raise RuntimeError("Server sent faulty message")
 
 def check_exclusivity(location):
