@@ -71,7 +71,9 @@ void Server::connection_handler(connection_ptr con, boost_error error) {
 	start_accept(); // start new accept while we deal with this connection
 
 	if (error) {
-		// For now
+		std::cerr << "[E] Type: " << error.category().name() << std::endl;
+		std::cerr << "[E] Value: " << error.value() << std::endl;
+		std::cerr << "[E] Messsage: " << error.message() << std::endl;
 		std::terminate();
 	}
 
@@ -86,7 +88,9 @@ void Server::connection_handler(connection_ptr con, boost_error error) {
 
 void Server::header_handler(connection_ptr con, boost_error error, size_t numb) {
 	if (error) {
-		// For now
+		std::cerr << "[E] Type: " << error.category().name() << std::endl;
+		std::cerr << "[E] Value: " << error.value() << std::endl;
+		std::cerr << "[E] Messsage: " << error.message() << std::endl;
 		std::terminate();
 	}
 
@@ -105,7 +109,9 @@ void Server::header_handler(connection_ptr con, boost_error error, size_t numb) 
 
 void Server::message_handler(connection_ptr con, boost_error error, size_t numb) {
 	if (error) {
-		// For now
+		std::cerr << "[E] Type: " << error.category().name() << std::endl;
+		std::cerr << "[E] Value: " << error.value() << std::endl;
+		std::cerr << "[E] Messsage: " << error.message() << std::endl;
 		std::terminate();
 	}
 
@@ -133,7 +139,9 @@ void Server::message_handler(connection_ptr con, boost_error error, size_t numb)
 
 void Server::end_connection(connection_ptr con, boost_error error) {
 	if (error) {
-		// For now
+		std::cerr << "[E] Type: " << error.category().name() << std::endl;
+		std::cerr << "[E] Value: " << error.value() << std::endl;
+		std::cerr << "[E] Messsage: " << error.message() << std::endl;
 		std::terminate();
 	}
 	con->socket.close();
