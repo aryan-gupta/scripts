@@ -55,6 +55,7 @@ class Server {
 	void end_connection(connection_ptr con, boost_error error);
 
 public:
+	using opt_msg_type = std::optional<std::string>;
 	/// Default c'tor
 	Server();
 
@@ -66,7 +67,7 @@ public:
 
 	/// Trys to pop a magnet link from the queue. If the queue is empty, it will
 	/// return nothing
-	std::optional<std::string> try_pop_message();
+	opt_msg_type try_pop_message();
 
 	size_t get_size();
 

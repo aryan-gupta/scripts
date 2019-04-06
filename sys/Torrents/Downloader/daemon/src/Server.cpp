@@ -144,7 +144,7 @@ void Server::add_message(std::string& link) {
 }
 
 
-std::optional<std::string> Server::try_pop_message() {
+auto Server::try_pop_message() -> opt_msg_type {
 	unique_lock lk{ mQLock };
 	if (mQueue.empty()) {
 		return {  };
