@@ -11,8 +11,18 @@
 
 int main() {
 	std::shared_ptr<Server> svr{ new Server{  } };
-	svr->run();
 
+	while (true) {
+		char reply{  };
+		std::cout << "::";
+		std::cout.flush();
+		std::cin >> reply;
+
+		switch(std::tolower(reply)) {
+			case 'q': return EXIT_SUCCESS;
+			case 's': std::cout << svr->get_size() << std::endl;
+		}
+	}
 	return EXIT_SUCCESS;
 }
 
