@@ -15,7 +15,7 @@ namespace ph = std::placeholders;
 
 namespace {
 	static constexpr unsigned short gPORT = 29628;
-	static constexpr unsigned short gHEADER_LEN = 4;
+	static constexpr size_t gHEADER_LEN = 4;
 	const Connection::buffer_type gFIN = { 0, 0, 0, 3, 'F', 'I', 'N' };
 }
 
@@ -35,7 +35,7 @@ Server::~Server()
 
 uint32_t Server::parse_header(const buffer_type& data) {
 	uint32_t len{  };
-	for (short i = 0; i < gHEADER_LEN; ++i) {
+	for (size_t i = 0; i < gHEADER_LEN; ++i) {
 		len = (len << 8) + data[i];
 	}
 	return len;
@@ -43,8 +43,8 @@ uint32_t Server::parse_header(const buffer_type& data) {
 
 
 auto Server::create_header(uint32_t len) -> buffer_type {
-	buffer_type head(4);
-	for (int i = 0; i < gHEADER_LEN; ++i) {
+	buffer_type head( gHEADER_LEN );
+	for (size_t i = 0; i < gHEADER_LEN; ++i) {
 		head[3 - i] = (len >> (8 * i)) bitand 0xFF;
 	}
 	return head;
@@ -54,7 +54,8 @@ auto Server::create_header(uint32_t len) -> buffer_type {
 void Server::stop() {
 	if (!mIOcontext.stopped())
 		mIOcontext.stop();
-	mThread.join();
+	if (mThread.joinable())
+		mThread.join();
 }
 
 
@@ -118,7 +119,6 @@ void Server::message_handler(connection_ptr con, boost_error error, size_t numb)
 	std::string link{ con->buffer.begin(), con->buffer.end() };
 	add_message(link);
 
-	con->buffer.clear();
 	con->buffer = gFIN;
 
 	asio::async_write(
