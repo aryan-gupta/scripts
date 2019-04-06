@@ -12,15 +12,17 @@ namespace ip = boost::asio::ip;
 namespace asio = boost::asio;
 namespace ph = std::placeholders;
 
+
 namespace {
-	static constexpr unsigned short mPORT = 29628;
-	static constexpr unsigned short mHEADER_LEN = 4;
-	const Connection::buffer_type mFIN = { 0, 0, 0, 3, 'F', 'I', 'N' };
+	static constexpr unsigned short gPORT = 29628;
+	static constexpr unsigned short gHEADER_LEN = 4;
+	const Connection::buffer_type gFIN = { 0, 0, 0, 3, 'F', 'I', 'N' };
 }
+
 
 Server::Server()
 	: mIOcontext{  }
-	, mAcceptor{ mIOcontext, ip::tcp::endpoint{ ip::tcp::v4(), mPORT } }
+	, mAcceptor{ mIOcontext, ip::tcp::endpoint{ ip::tcp::v4(), gPORT } }
 	, mQLock{  }
 	, mQueue{  }
 	, mThread{ [this](){ this->mIOcontext.run(); } }
@@ -33,7 +35,7 @@ Server::~Server()
 
 uint32_t Server::parse_header(const buffer_type& data) {
 	uint32_t len{  };
-	for (short i = 0; i < mHEADER_LEN; ++i) {
+	for (short i = 0; i < gHEADER_LEN; ++i) {
 		len = (len << 8) + data[i];
 	}
 	return len;
@@ -42,7 +44,7 @@ uint32_t Server::parse_header(const buffer_type& data) {
 
 auto Server::create_header(uint32_t len) -> buffer_type {
 	buffer_type head(4);
-	for (int i = 0; i < mHEADER_LEN; ++i) {
+	for (int i = 0; i < gHEADER_LEN; ++i) {
 		head[3 - i] = (len >> (8 * i)) bitand 0xFF;
 	}
 	return head;
@@ -79,7 +81,7 @@ void Server::connection_handler(connection_ptr con, boost_error error) {
 		std::terminate();
 	}
 
-	con->buffer.resize(mHEADER_LEN);
+	con->buffer.resize(gHEADER_LEN);
 
 	asio::async_read(
 		con->socket,
@@ -117,7 +119,7 @@ void Server::message_handler(connection_ptr con, boost_error error, size_t numb)
 	add_message(link);
 
 	con->buffer.clear();
-	con->buffer = mFIN;
+	con->buffer = gFIN;
 
 	asio::async_write(
 		con->socket,
