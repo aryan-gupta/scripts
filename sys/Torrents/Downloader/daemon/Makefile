@@ -42,7 +42,7 @@ DEPS = $(patsubst %, $(DEP)/%.d, $(basename $(notdir $(SRCS))))
 
 # External libs
 ILIBS = $(BOOST_INC)
-LLIBS = $(BOOST_LNK)
+LLIBS = $(BOOST_LNK) -ltorrent
 
 CPP_VER = -std=c++17
 
