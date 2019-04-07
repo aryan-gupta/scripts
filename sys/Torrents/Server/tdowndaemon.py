@@ -6,6 +6,16 @@ import protocol as pc
 
 sock_loc = "/tmp/tdowncom.sock"
 
+def send_to_downloader(message):
+	# Create connection with other server and start
+	with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as sock:
+		sock.connect(("127.0.0.1", 29628))
+		reply = pc.get_reply(sock, message)
+		if reply != "FIN":
+			raise RuntimeError("Server sent faulty message")
+		else:
+			print("Send successfully")
+
 def manage_connection(connection, address):
 	message = pc.read_message(connection).decode()
 
@@ -15,12 +25,7 @@ def manage_connection(connection, address):
 
 	pc.send_message(connection, 'D'.encode())
 
-	# Create connection with other server and start
-	with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as sock:
-		sock.connect(("127.0.0.1", 29628))
-		reply = pc.get_reply(sock, message)
-		if reply != "FIN":
-			raise RuntimeError("Server sent faulty message")
+	send_to_downloader(message)
 
 def check_exclusivity(location):
 	""" If the path exists and we cant communicate with the main daemon
