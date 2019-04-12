@@ -5,6 +5,7 @@
 #include <libtorrent/error_code.hpp>
 #include <libtorrent/alert_types.hpp>
 #include <libtorrent/alert.hpp>
+#include <libtorrent/announce_entry.hpp>
 
 #include "TorrentClient.hpp"
 #include "Server.hpp"
@@ -13,12 +14,14 @@ namespace {
 	using opt_magnet = Server::opt_msg_type;
 	// static constexpr std::string_view SAVE_LOC = "~/Downloads/Torrents";
 	static constexpr std::string_view SAVE_LOC = "./";
+	static constexpr std::string_view IP_TORRENT_LINK = "magnet:?xt=urn:btih:4754d57a842abd32eed19e29d49db44e5ab33424&dn=checkmyiptorrent&tr=http%3A%2F%2F34.204.227.31%2Fcheckmytorrentipaddress.php";
 }
 
 TorrentClient::TorrentClient(std::shared_ptr<Server> svr)
 	: mSvr{ svr }
 	, mSession{ get_settings() }
 	, mTorrents{  }
+	, mIPChecker{  }
 	, mKill{ false }
 	, mThread{ &TorrentClient::run, this }
 	{
@@ -26,6 +29,9 @@ TorrentClient::TorrentClient(std::shared_ptr<Server> svr)
 	mSession.add_dht_node(std::make_pair("router.bittorrent.com", 6881));
 	mSession.add_dht_node(std::make_pair("dht.transmissionbt.com", 6881));
 	mSession.add_dht_node(std::make_pair("dht.aelitis.com", 6881));
+
+	// Add our IP checker torrent. This will allow us to check our torrent IP
+	mIPChecker = add_magnet(IP_TORRENT_LINK);
 }
 
 // return the name of a torrent status enum
@@ -66,6 +72,25 @@ lt::torrent_handle TorrentClient::add_magnet(std::string_view magnet) {
 	return handle;
 }
 
+
+void TorrentClient::check_ip() {
+	// Get the ip from the ip checker, the first tracker and first endpoint should have our
+	// IP message.
+	auto trackers = mIPChecker.trackers();
+	for (auto& t : trackers) {
+		for (auto& e : t.endpoints) {
+			auto& message = e.message;
+			if (    message[0] == 'I'
+				and message[1] == 'P'
+				and message[2] == ':'
+			) {
+				std::cout << "Out IP is: " << message.substr(4) << std::endl;
+			}
+		}
+	}
+}
+
+
 void TorrentClient::run() {
 	while (!mKill.load(std::memory_order_relaxed)) {
 		// Check if there are anymore torrents to queue up
@@ -73,6 +98,8 @@ void TorrentClient::run() {
 			lt::torrent_handle handle = add_magnet(link.value());
 			mTorrents.push_back(std::move(handle));
 		}
+
+		check_ip();
 
 		// Get any alerts and pop them
 		std::vector<lt::alert*> alerts;
