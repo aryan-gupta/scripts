@@ -11,12 +11,15 @@
 #include "TorrentClient.hpp"
 
 int main() {
+	std::cout << "Starting server" << std::endl;
 	std::shared_ptr<Server> svr{ new Server{  } };
+
+	std::cout << "Starting torrent downloader" << std::endl;
 	std::unique_ptr<TorrentClient> clnt{ new TorrentClient{ svr } };
 
 	for (bool quit = false; !quit;) {
 		char reply{  };
-		std::cout << "::";
+		// std::cout << "::";
 		std::cout.flush();
 		std::cin >> reply;
 
