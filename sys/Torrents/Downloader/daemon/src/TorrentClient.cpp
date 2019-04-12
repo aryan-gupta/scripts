@@ -28,6 +28,18 @@ TorrentClient::TorrentClient(std::shared_ptr<Server> svr)
 	mSession.add_dht_node(std::make_pair("dht.aelitis.com", 6881));
 }
 
+// return the name of a torrent status enum
+char const* TorrentClient::state(lt::torrent_status::state_t s) {
+	switch(s) {
+		case lt::torrent_status::checking_files: return "checking";
+		case lt::torrent_status::downloading_metadata: return "dl metadata";
+		case lt::torrent_status::downloading: return "downloading";
+		case lt::torrent_status::finished: return "finished";
+		case lt::torrent_status::seeding: return "seeding";
+		case lt::torrent_status::allocating: return "allocating";
+		case lt::torrent_status::checking_resume_data: return "checking resume";
+		default: return "<>";
+	}
 }
 
 [[maybe_unused]]
@@ -71,7 +83,7 @@ void TorrentClient::run() {
 			if (auto status = lt::alert_cast<lt::state_update_alert>(a)) {
 				for (auto& s : status->status) {
 					std::cout << s.name << std::endl;
-					std::cout << "\r"/* << state(s.state) */<< " "
+					std::cout << "\r" << state(s.state) << " "
 					<< (s.download_payload_rate / 1000) << " kB/s "
 					<< (s.total_done / 1000) << " kB ("
 					<< (s.progress_ppm / 10000) << "%) downloaded";

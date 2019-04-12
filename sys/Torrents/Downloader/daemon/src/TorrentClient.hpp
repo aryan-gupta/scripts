@@ -7,6 +7,7 @@
 
 #include <libtorrent/session.hpp>
 #include <libtorrent/torrent_handle.hpp>
+#include <libtorrent/torrent_status.hpp>
 
 #include "main.hpp"
 
@@ -20,6 +21,7 @@ class TorrentClient {
 	void run();
 
 	static lt::settings_pack get_settings();
+	static char const* state(lt::torrent_status::state_t s);
 	[[maybe_unused]] lt::torrent_handle add_magnet(std::string_view magnet);
 
 public:
