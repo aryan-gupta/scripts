@@ -12,19 +12,25 @@ namespace ip = boost::asio::ip;
 namespace asio = boost::asio;
 namespace ph = std::placeholders;
 
+
 namespace {
-	static constexpr unsigned short mPORT = 29628;
-	static constexpr unsigned short mHEADER_LEN = 4;
-	const Connection::buffer_type mFIN = { 0, 0, 0, 3, 'F', 'I', 'N' };
+	static constexpr unsigned short gPORT = 29628;
+	static constexpr size_t gHEADER_LEN = 4;
+	const Connection::buffer_type gFIN = { 0, 0, 0, 3, 'F', 'I', 'N' };
 }
+
 
 Server::Server()
 	: mIOcontext{  }
-	, mAcceptor{ mIOcontext, ip::tcp::endpoint{ ip::tcp::v4(), mPORT } }
+	, mAcceptor{ mIOcontext, ip::tcp::endpoint{ ip::tcp::v4(), gPORT } }
 	, mQLock{  }
 	, mQueue{  }
 	, mThread{ [this](){ this->mIOcontext.run(); } }
-{ start_accept(); }
+{ start_accept();
+	// This is going to be temp for debug
+	using namespace std::string_literals;
+	this->add_message("magnet:?xt=urn:btih:c466035da5de7b04df065831e87ac368456e7fbe&dn=kali-linux-light-2019-1a-armhf-img-xz"s);
+ }
 
 
 Server::~Server()
@@ -33,7 +39,7 @@ Server::~Server()
 
 uint32_t Server::parse_header(const buffer_type& data) {
 	uint32_t len{  };
-	for (short i = 0; i < mHEADER_LEN; ++i) {
+	for (size_t i = 0; i < gHEADER_LEN; ++i) {
 		len = (len << 8) + data[i];
 	}
 	return len;
@@ -41,8 +47,8 @@ uint32_t Server::parse_header(const buffer_type& data) {
 
 
 auto Server::create_header(uint32_t len) -> buffer_type {
-	buffer_type head(4);
-	for (int i = 0; i < mHEADER_LEN; ++i) {
+	buffer_type head( gHEADER_LEN );
+	for (size_t i = 0; i < gHEADER_LEN; ++i) {
 		head[3 - i] = (len >> (8 * i)) bitand 0xFF;
 	}
 	return head;
@@ -52,7 +58,8 @@ auto Server::create_header(uint32_t len) -> buffer_type {
 void Server::stop() {
 	if (!mIOcontext.stopped())
 		mIOcontext.stop();
-	mThread.join();
+	if (mThread.joinable())
+		mThread.join();
 }
 
 
@@ -79,7 +86,7 @@ void Server::connection_handler(connection_ptr con, boost_error error) {
 		std::terminate();
 	}
 
-	con->buffer.resize(mHEADER_LEN);
+	con->buffer.resize(gHEADER_LEN);
 
 	asio::async_read(
 		con->socket,
@@ -116,8 +123,7 @@ void Server::message_handler(connection_ptr con, boost_error error, size_t numb)
 	std::string link{ con->buffer.begin(), con->buffer.end() };
 	add_message(link);
 
-	con->buffer.clear();
-	con->buffer = mFIN;
+	con->buffer = gFIN;
 
 	asio::async_write(
 		con->socket,
@@ -136,13 +142,17 @@ void Server::end_connection(connection_ptr con, boost_error error) {
 }
 
 
-void Server::add_message(std::string& link) {
+template <typename T>
+void Server::add_message(T&& link) {
 	unique_lock lk{ mQLock };
-	mQueue.push(link);
+	mQueue.push(std::forward<T>(link));
 }
 
+template void Server::add_message<std::string>(std::string&&);
+template void Server::add_message<std::string const&>(std::string const&);
 
-std::optional<std::string> Server::try_pop_message() {
+
+auto Server::try_pop_message() -> opt_msg_type {
 	unique_lock lk{ mQLock };
 	if (mQueue.empty()) {
 		return {  };

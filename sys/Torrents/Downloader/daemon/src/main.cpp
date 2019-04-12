@@ -6,23 +6,29 @@
 
 #include <boost/system/error_code.hpp>
 
-#include "Server.hpp"
 #include "main.hpp"
+#include "Server.hpp"
+#include "TorrentClient.hpp"
 
 int main() {
+	std::cout << "Starting server" << std::endl;
 	std::shared_ptr<Server> svr{ new Server{  } };
 
-	while (true) {
+	std::cout << "Starting torrent downloader" << std::endl;
+	std::unique_ptr<TorrentClient> clnt{ new TorrentClient{ svr } };
+
+	for (bool quit = false; !quit;) {
 		char reply{  };
-		std::cout << "::";
+		// std::cout << "::";
 		std::cout.flush();
 		std::cin >> reply;
 
 		switch(std::tolower(reply)) {
-			case 'q': return EXIT_SUCCESS;
+			case 'q': quit = true;
 			case 's': std::cout << svr->get_size() << std::endl;
 		}
 	}
+
 	return EXIT_SUCCESS;
 }
 
