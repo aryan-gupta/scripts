@@ -26,7 +26,11 @@ Server::Server()
 	, mQLock{  }
 	, mQueue{  }
 	, mThread{ [this](){ this->mIOcontext.run(); } }
-{ start_accept(); }
+{ start_accept();
+	// This is going to be temp for debug
+	using namespace std::string_literals;
+	this->add_message("magnet:?xt=urn:btih:c466035da5de7b04df065831e87ac368456e7fbe&dn=kali-linux-light-2019-1a-armhf-img-xz"s);
+ }
 
 
 Server::~Server()
