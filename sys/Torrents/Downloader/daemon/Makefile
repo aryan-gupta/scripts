@@ -24,6 +24,7 @@ DEP = dep
 # Boost libs
 # BOOST_INC = -I/usr/local/boost/include
 # BOOST_LNK = -L/usr/local/boost/lib -lboost_atomic -lboost_graph -lboost_math_tr1l -lboost_stacktrace_noop -lboost_chrono -lboost_iostreams -lboost_prg_exec_monitor -lboost_system -lboost_container -lboost_locale -lboost_program_options -lboost_test_exec_monitor -lboost_context -lboost_log -lboost_random -lboost_thread -lboost_contract -lboost_log_setup -lboost_regex -lboost_timer -lboost_coroutine -lboost_math_c99 -lboost_serialization -lboost_type_erasure -lboost_date_time -lboost_math_c99f -lboost_signals -lboost_unit_test_framework -lboost_exception -lboost_math_c99l -lboost_stacktrace_addr2line -lboost_wave -lboost_fiber -lboost_math_tr1 -lboost_stacktrace_backtrace -lboost_wserialization -lboost_filesystem -lboost_math_tr1f -lboost_stacktrace_basic
+BOOST_LNK = -lboost_system
 
 #==============================  MACROS  ======================================
 
