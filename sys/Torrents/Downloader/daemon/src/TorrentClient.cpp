@@ -12,6 +12,10 @@
 
 namespace {
 	using opt_magnet = Server::opt_msg_type;
+	static std::string PROXY_HOST = "nl.privateinternetaccess.com";
+	static constexpr unsigned short PROXY_PORT = 1080;
+	static std::string PROXY_UNAME = "x2414982";
+	static std::string PROXY_PASSWD = "hv7B9fMaMv";
 	// static constexpr std::string_view SAVE_LOC = "~/Downloads/Torrents";
 	static constexpr std::string_view SAVE_LOC = "./";
 	static constexpr std::string_view IP_TORRENT_LINK = "magnet:?xt=urn:btih:4754d57a842abd32eed19e29d49db44e5ab33424&dn=checkmyiptorrent&tr=http%3A%2F%2F34.204.227.31%2Fcheckmytorrentipaddress.php";
@@ -136,12 +140,27 @@ void TorrentClient::run() {
 
 lt::settings_pack TorrentClient::get_settings() {
 	lt::settings_pack p;
-	p.set_int(
-		  lt::settings_pack::alert_mask
+
+	p.set_int( lt::settings_pack::alert_mask
 		, lt::alert::status_notification
 		| lt::alert::error_notification
 		| lt::alert::storage_notification
 	);
+
+	// proxy based settings
+	// https://security.stackexchange.com/questions/183146/
+	// p.set_int(lt::settings_pack::proxy_type, lt::settings_pack::socks5_pw);
+	// p.set_int(lt::settings_pack::proxy_port, PROXY_PORT);
+	// p.set_str(lt::settings_pack::proxy_hostname, PROXY_HOST);
+	// p.set_str(lt::settings_pack::proxy_username, PROXY_UNAME);
+	// p.set_str(lt::settings_pack::proxy_password, PROXY_PASSWD);
+
+	// p.set_bool(lt::settings_pack::anonymous_mode, true);
+	// p.set_bool(lt::settings_pack::proxy_hostnames, true);
+	// p.set_bool(lt::settings_pack::proxy_peer_connections, true);
+	// p.set_bool(lt::settings_pack::proxy_tracker_connections, true);
+	// p.set_bool(lt::settings_pack::proxy_tracker_connections, true);
+
 	return p;
 }
 
