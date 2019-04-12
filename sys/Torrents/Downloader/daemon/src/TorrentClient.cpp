@@ -27,7 +27,7 @@ TorrentClient::TorrentClient(std::shared_ptr<Server> svr)
 	, mTorrents{  }
 	, mIPChecker{  }
 	, mKill{ false }
-	, mThread{ &TorrentClient::run, this }
+	, mThread{ }
 	{
 	mSession.add_dht_node(std::make_pair("router.utorrent.com", 6881));
 	mSession.add_dht_node(std::make_pair("router.bittorrent.com", 6881));
@@ -36,6 +36,8 @@ TorrentClient::TorrentClient(std::shared_ptr<Server> svr)
 
 	// Add our IP checker torrent. This will allow us to check our torrent IP
 	mIPChecker = add_magnet(IP_TORRENT_LINK);
+
+	mThread = std::thread{ &TorrentClient::run, this };
 }
 
 // return the name of a torrent status enum
@@ -108,6 +110,17 @@ void TorrentClient::run() {
 		// Get any alerts and pop them
 		std::vector<lt::alert*> alerts;
 		mSession.pop_alerts(&alerts);
+
+		for (auto& t : mTorrents) {
+			std::cout << "Hell" << std::endl;
+			auto s = t.status();
+			std::cout << s.name << std::endl;
+			std::cout << "\r" << state(s.state) << " "
+			<< (s.download_payload_rate / 1000) << " kB/s "
+			<< (s.total_done / 1000) << " kB ("
+			<< (s.progress_ppm / 10000) << "%) downloaded";
+			std::cout << std::endl;
+		}
 
 		// Process alerts
 		for (auto a : alerts) {
