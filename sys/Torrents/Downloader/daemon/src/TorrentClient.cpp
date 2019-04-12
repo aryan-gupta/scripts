@@ -30,27 +30,35 @@ TorrentClient::TorrentClient(std::shared_ptr<Server> svr)
 
 }
 
+[[maybe_unused]]
+lt::torrent_handle TorrentClient::add_magnet(std::string_view magnet) {
+	lt::error_code ec;
+
+	// @todo there is no conversion between std::string_view to lt::string_view { aka boost::string_view }
+	// so we must use .data() here
+	lt::add_torrent_params param = lt::parse_magnet_uri(magnet.data(), ec);
+	param.save_path = SAVE_LOC;
+
+	if (ec) {
+		print_boost_error(ec);
+		std::terminate();
+	}
+
+	lt::torrent_handle handle = mSession.add_torrent(param, ec);
+
+	if (ec) {
+		print_boost_error(ec);
+		std::terminate();
+	}
+
+	return handle;
+}
+
 void TorrentClient::run() {
 	while (!mKill.load(std::memory_order_relaxed)) {
-		lt::error_code ec;
-
 		// Check if there are anymore torrents to queue up
 		for (opt_magnet link = mSvr->try_pop_message(); link.has_value(); link = mSvr->try_pop_message()) {
-			lt::add_torrent_params param = lt::parse_magnet_uri(link.value(), ec);
-			param.save_path = SAVE_LOC;
-
-			if (ec) {
-				print_boost_error(ec);
-				std::terminate();
-			}
-
-			lt::torrent_handle handle = mSession.add_torrent(param, ec);
-
-			if (ec) {
-				print_boost_error(ec);
-				std::terminate();
-			}
-
+			lt::torrent_handle handle = add_magnet(link.value());
 			mTorrents.push_back(std::move(handle));
 		}
 

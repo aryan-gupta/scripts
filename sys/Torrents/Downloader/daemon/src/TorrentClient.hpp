@@ -20,6 +20,7 @@ class TorrentClient {
 	void run();
 
 	static lt::settings_pack get_settings();
+	[[maybe_unused]] lt::torrent_handle add_magnet(std::string_view magnet);
 
 public:
 	TorrentClient(std::shared_ptr<Server> svr);
