@@ -54,6 +54,9 @@
 		"typeinfo": "cpp",
 		"utility": "cpp",
 		"variant": "cpp",
-		"algorithm": "cpp"
+		"algorithm": "cpp",
+		"cinttypes": "cpp",
+		"unordered_set": "cpp",
+		"numeric": "cpp"
 	}
 }
