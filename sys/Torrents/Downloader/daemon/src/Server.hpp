@@ -34,7 +34,7 @@ class Server {
 	static buffer_type create_header(uint32_t len);
 
 	/// Adds a magnet link
-	void add_message(std::string& link);
+	template <typename T> void add_message(T&& link);
 
 	/// Creates a connection
 	connection_ptr create_connection();

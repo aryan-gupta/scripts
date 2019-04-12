@@ -138,10 +138,14 @@ void Server::end_connection(connection_ptr con, boost_error error) {
 }
 
 
-void Server::add_message(std::string& link) {
+template <typename T>
+void Server::add_message(T&& link) {
 	unique_lock lk{ mQLock };
-	mQueue.push(link);
+	mQueue.push(std::forward<T>(link));
 }
+
+template void Server::add_message<std::string>(std::string&&);
+template void Server::add_message<std::string const&>(std::string const&);
 
 
 auto Server::try_pop_message() -> opt_msg_type {
