@@ -19,6 +19,8 @@ class TorrentClient {
 
 	void run();
 
+	static lt::settings_pack get_settings();
+
 public:
 	TorrentClient(std::shared_ptr<Server> svr);
 
