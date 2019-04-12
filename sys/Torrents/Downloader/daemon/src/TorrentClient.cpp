@@ -1,11 +1,13 @@
 
+#include <iostream>
+
+#include <libtorrent/magnet_uri.hpp>
+#include <libtorrent/error_code.hpp>
+#include <libtorrent/alert_types.hpp>
+#include <libtorrent/alert.hpp>
+
 #include "TorrentClient.hpp"
 #include "Server.hpp"
-
-#include "libtorrent/magnet_uri.hpp"
-#include "libtorrent/error_code.hpp"
-#include "libtorrent/alert_types.hpp"
-#include "libtorrent/alert.hpp"
 
 namespace {
 	using opt_magnet = Server::opt_msg_type;
