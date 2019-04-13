@@ -1,0 +1,13 @@
+[Unit]
+Description=Start the IP Checker server. Replys with your IP Address
+After=network.target
+StartLimitIntervalSec=0
+
+[Service]
+Type=simple
+Restart=always
+RestartSec=1
+ExecStart=/usr/bin/env python /bin/ipcheckersvr
+
+[Install]
+WantedBy=multi-user.target
