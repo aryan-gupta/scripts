@@ -119,27 +119,20 @@ void TorrentClient::run() {
 		std::vector<lt::alert*> alerts;
 		mSession.pop_alerts(&alerts);
 
-		for (auto& t : mTorrents) {
-			std::cout << "Hell" << std::endl;
-			auto s = t.status();
-			std::cout << s.name << std::endl;
-			std::cout << "\r" << state(s.state) << " "
-			<< (s.download_payload_rate / 1000) << " kB/s "
-			<< (s.total_done / 1000) << " kB ("
-			<< (s.progress_ppm / 10000) << "%) downloaded";
-			std::cout << std::endl;
-		}
-
 		// Process alerts
 		for (auto a : alerts) {
 			if (auto status = lt::alert_cast<lt::state_update_alert>(a)) {
 				for (auto& s : status->status) {
-					std::cout << s.name << std::endl;
-					std::cout << "\r" << state(s.state) << " "
+					continue;
+					if (s.name == "checkmyiptorrent") continue; // we want to skip the ip checker torrent
+
+					std::cout << s.name << "  ::  ";
+					std::cout << state(s.state) << " "
 					<< (s.download_payload_rate / 1000) << " kB/s "
 					<< (s.total_done / 1000) << " kB ("
 					<< (s.progress_ppm / 10000) << "%) downloaded";
-					std::cout << std::endl;
+					std::cout << "\r";
+					std::cout.flush();
 				}
 			}
 
