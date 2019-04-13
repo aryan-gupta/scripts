@@ -90,7 +90,15 @@ void TorrentClient::check_ip() {
 				and message[1] == 'P'
 				and message[2] == ':'
 			) {
-				std::cout << "Out IP is: " << message.substr(4) << std::endl;
+				char* torr_ip = message.data() + 3;
+				ip_addr our_ip = parse_ip(torr_ip);
+				ip_addr ext_ip = parse_ip(mSvr->get_ip());
+
+				if (our_ip == ext_ip) {
+					std::cout << "THE IP MATCHES" << std::endl;
+				} else {
+					std::cout << "WE ARE SAFE" << std::endl;
+				}
 			}
 		}
 	}
