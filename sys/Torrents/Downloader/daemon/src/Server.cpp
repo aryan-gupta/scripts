@@ -33,14 +33,11 @@ Server::Server()
 	, mThread{ [this](){ this->mIOcontext.run(); } }
 {
 	start_accept();
+
 	std::shared_ptr<asio::deadline_timer> timer { new asio::deadline_timer{ mIOcontext } };
-	timer->expires_from_now(boost::posix_time::seconds{ 1 });
-	timer->async_wait(std::bind(
-		&Server::ip_get_addr,
-		this,
-		timer,
-		ph::_1
-	));
+	timer->expires_from_now(boost::posix_time::seconds{ 0 });
+	timer->async_wait(std::bind(&Server::ip_get_addr, this, timer, ph::_1));
+
 	// This is going to be temp for debug
 	using namespace std::string_literals;
 	this->add_message("magnet:?xt=urn:btih:c466035da5de7b04df065831e87ac368456e7fbe&dn=kali-linux-light-2019-1a-armhf-img-xz"s);
