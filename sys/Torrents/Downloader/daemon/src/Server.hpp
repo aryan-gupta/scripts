@@ -22,9 +22,12 @@ class Server {
 	using unique_lock = std::unique_lock<std::mutex>;
 
 	boost::asio::io_context mIOcontext; //< IO context for IO
+	boost::asio::ip::tcp::resolver mResolver;
 	boost::asio::ip::tcp::acceptor mAcceptor; //< Acceptor for new incoming connections
 	std::mutex mQLock; //< Lock to protect Queue
 	std::queue<std::string> mQueue; //< Queue of messages
+	std::mutex mIPLock;
+	std::string mExtIP;
 	std::thread mThread; //< Thread for server
 
 	/// Parsed a header from communication
@@ -54,6 +57,16 @@ class Server {
 	/// Ends the connection to the client
 	void end_connection(connection_ptr con, boost_error error);
 
+	void ip_get_addr(std::shared_ptr<boost::asio::deadline_timer> timer, boost_error error);
+
+	void ip_start_connection(boost_error error, boost::asio::ip::tcp::resolver::results_type results);
+
+	void ip_header_handler(connection_ptr con, boost_error error, size_t numb);
+
+	void ip_message_handler(connection_ptr con, boost_error error, size_t numb);
+
+	void ip_update(std::string_view str);
+
 public:
 	using opt_msg_type = std::optional<std::string>;
 	/// Default c'tor
@@ -68,6 +81,8 @@ public:
 	/// Trys to pop a magnet link from the queue. If the queue is empty, it will
 	/// return nothing
 	opt_msg_type try_pop_message();
+
+	std::string get_ip();
 
 	size_t get_size();
 
