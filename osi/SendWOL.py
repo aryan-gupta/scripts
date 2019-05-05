@@ -4,7 +4,7 @@ import struct
 import socket
 import os
 import sys
-import mysql
+import mysql.connector
 
 SQLSVR = "local@higgs.gempi.re"
 DATABASE = "dhcp"
