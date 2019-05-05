@@ -6,8 +6,9 @@ import os
 import sys
 import mysql
 
-mysqlsvr = "local@higgs.gempi.re"
-database = "dhcp"
+SQLSVR = "local@higgs.gempi.re"
+DATABASE = "dhcp"
+DOMAIN = '.gempi.re'
 
 def send_wol_packet(ip, mac, port = 9):
 	if len(mac) == 12: # match straight mac addresses
@@ -32,9 +33,9 @@ def send_wol_packet(ip, mac, port = 9):
 def load_config(host):
 	try:
 		db = mysql.connector.connect(
-			user = mysqlsvr.split("@")[0],
-			host = mysqlsvr.split("@")[1],
-			database = database
+			user = SQLSVR.split("@")[0],
+			host = SQLSVR.split("@")[1],
+			database = DATABASE
 		)
 	except mysql.connector.errors.ProgrammingError:
 		print("[E] Error on connecting to database")
@@ -55,8 +56,9 @@ def main():
 		print("[E] Usage: <host>")
 	host = sys.argv[1]
 	mac = load_config(host)
-	ip  = socket.gethostbyname(host)
+	ip  = socket.gethostbyname(host + DOMAIN)
 	send_wol_packet(ip, mac)
+	print("Sent to " + ip + " with mac: " + mac)
 
 if __name__ == "__main__":
 	main()
