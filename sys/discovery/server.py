@@ -23,21 +23,28 @@ def parse(msg):
 	return retval
 
 
-def get_reply(msg_raw, addr):
-	header = f'{PROTOCOL} REPLY {VERSION}\r\n'
-	msg = parse(msg_raw)
+def get_reply(msg, addr):
+	msg = parse(msg)
+	response = 'REPLY'
 	reply = None
 	request = msg['RQ']
 	if request == 'CONTROL':
 		reply = '\r\n'.join(['IP:192.168.0.3', f"PORT:{PORT}", '', ''])
+	elif request == 'DNS_SEARCH':
+		reply = '\r\n'.join(['RP:gempi.re', '', ''])
 	elif request == 'DNS':
 		reply = '\r\n'.join(['IP:192.168.0.3', 'PORT:53', '', ''])
-	elif request == 'MASS_SERVER':
+	elif request == 'LG_SMB':
 		reply = '\r\n'.join(['IP:192.168.0.5', 'PORT:445', '', ''])
-
+	elif request == 'SM_SMB':
+		reply = '\r\n'.join(['IP:192.168.0.5', 'PORT:445', '', ''])
+	elif request == 'SQL':
+		reply = '\r\n'.join(['IP:192.168.0.3', 'PORT:3306', '', ''])
 	else:
-		return f'{PROTOCOL} INVALID {VERSION}\r\n' + '\r\n'.join(['RP:INVALID', '', ''])
+		reply = '\r\n'.join(['RP:INVALID', '', ''])
+		response = 'INVALID'
 
+	header = f'{PROTOCOL} {response} {VERSION}\r\n'
 	return header + reply
 
 
