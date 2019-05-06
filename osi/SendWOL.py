@@ -3,12 +3,12 @@
 import struct
 import socket
 import sys
+import os
 import subprocess
 import mysql.connector
+from datetime import datetime
 
-SQLSVR = "local@higgs.gempi.re"
-DATABASE = "dhcp"
-DOMAIN = '.gempi.re'
+CONFIG_FILE = 'sendwol.config'
 
 def get_packet(mac):
 	if len(mac) == 12: # match straight mac addresses
@@ -40,7 +40,44 @@ def broadcast_wol_packet(brcst, mac, port = 9):
 		sock.send(packet)
 
 
-def load_config(host):
+def create_config(filename):
+	pass
+
+
+def update_config(filename, config):
+	pass
+
+
+def load_config(filename):
+	""" Loads a config file
+
+		Format:
+		DATE::<Date> # last time the config file was updated
+		SQL::<Server[user@server.domain.com/database]> The SQL database to use to get config
+		DNS::The DNS postfix to use
+		<host>::<mac>
+		...
+	"""
+	if not os.path.exists(filename):
+		return create_config(filename)
+
+	config = {}
+	file = open(filename, 'r')
+	for line in file:
+		key, value = line.split('::', 2)
+		config[key.upper()] = value
+
+	next_update = datetime.strptime("%b %d, %Y %H:%M", config['DATE']) + datetime.timedelta(days=30)
+	now = datetime.now()
+	if next_update < now:
+		update_config(filename, config)
+
+	return config
+
+
+def get_mac(file, host):
+	SQLSVR = "local@higgs.gempi.re"
+	DATABASE = "dhcp"
 	try:
 		db = mysql.connector.connect(
 			user = SQLSVR.split("@")[0],
@@ -59,6 +96,10 @@ def load_config(host):
 		raise SystemExit()
 
 	return result[0][0]
+
+
+def get_dns_search(file):
+	return '.gempi.re'
 
 
 def ping(host, wait):
@@ -104,13 +145,15 @@ def main():
 	if len(sys.argv) < 2:
 		print("[E] Usage: <host>")
 
+	config = load_config(CONFIG_FILE)
+
 	host = check_hostname(sys.argv[1])
-	fqdn = host + DOMAIN
+	fqdn = host + get_dns_search(config)
 
 	awake = ping(fqdn, 2)
 
 	if not awake:
-		mac = load_config(host)
+		mac = get_mac(config, host) # reads mac from file, if not, tries to get it from server
 		ip  = socket.gethostbyname(fqdn)
 		print(f"Sending WOL to {fqdn} ({ip} -- {mac})")
 		send_wol_packet(ip, mac)
