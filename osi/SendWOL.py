@@ -8,7 +8,11 @@ import subprocess
 import mysql.connector
 from datetime import datetime
 
-CONFIG_FILE = 'sendwol.config'
+from tgedclient import get_discovery_response
+from uriparse import uri_parse
+
+CONFIG_FILE = '~/.config/sendwol.config'
+CACHE_FILE = '~/.cache/sendwol.cache'
 
 def get_packet(mac):
 	if len(mac) == 12: # match straight mac addresses
@@ -40,49 +44,78 @@ def broadcast_wol_packet(brcst, mac, port = 9):
 		sock.send(packet)
 
 
-def create_config(filename):
-	pass
+def check_sql_svr(host):
+	with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as sock:
+		return sock.connect_ex((host, 3306)) == 0
 
 
-def update_config(filename, config):
-	pass
+def read_config(filename):
+	config = {}
+	with open(filename, 'r') as file:
+		for line in file:
+			key, value = line.split('::', 2)
+			config[key.strip().upper()] = value.strip()
+	return config
 
 
-def load_config(filename):
-	""" Loads a config file
+def write_config(filename, config):
+	with open(filename, "w") as file:
+		file.write('DATE::')
+		file.write(config['DATE'])
+		file.write('\n')
+
+		file.write('SQL::')
+		file.write(config['SQL']) # f"{reply['USER']}@{reply['HOST']}/{db}"
+		file.write('\n')
+
+		file.write('SEARCH::') # reply['HOST'][reply['HOST'].find('.'):]
+		file.write(config['SEARCH']) # strip the hostname, and just keep the domain name
+		file.write('\n')
+
+
+def needs_update(date):
+	print(date)
+	next_update = datetime.strptime(date, '%Y-%m-%d %H:%M:%S')
+	now = datetime.now()
+	return next_update > now
+
+
+def load_config(filename, config=None):
+	""" Loads a config file, creating one if none exists, updating it if its outdated
 
 		Format:
 		DATE::<Date> # last time the config file was updated
 		SQL::<Server[user@server.domain.com/database]> The SQL database to use to get config
-		DNS::The DNS postfix to use
-		<host>::<mac>
+		SEARCH::The DNS postfix to use
 		...
 	"""
-	if not os.path.exists(filename):
-		return create_config(filename)
-
+	db = 'dhcp'
 	config = {}
-	file = open(filename, 'r')
-	for line in file:
-		key, value = line.split('::', 2)
-		config[key.upper()] = value
 
-	next_update = datetime.strptime("%b %d, %Y %H:%M", config['DATE']) + datetime.timedelta(days=30)
-	now = datetime.now()
-	if next_update < now:
-		update_config(filename, config)
+	if not os.path.exists(filename): # If no file exists, create one
+		config['DATE'] = str(datetime.now().strftime('%Y-%m-%d %H:%M:%S'))
+		reply = get_discovery_response('SQL')
+		config['SQL'] = f"{reply['USER']}@{reply['HOST']}/{db}"
+		reply = get_discovery_response('DNS_SEARCH')
+		config['SEARCH'] = reply['RP']
 
+		write_config(filename, config)
+	else:
+		config = read_config(filename)
+		if needs_update(config['DATE']):
+			config['DATE'] = str(datetime.now() + datetime.timedelta(days=30))
+			write_config(filename, config)
 	return config
 
 
-def get_mac(file, host):
-	SQLSVR = "local@higgs.gempi.re"
-	DATABASE = "dhcp"
+def get_mac(host, server):
+	svr = uri_parse(server)
+	db = None
 	try:
 		db = mysql.connector.connect(
-			user = SQLSVR.split("@")[0],
-			host = SQLSVR.split("@")[1],
-			database = DATABASE
+			user=svr.user,
+			host=svr.host,
+			database=svr.path[1:] # strip the leading '/'
 		)
 	except mysql.connector.errors.ProgrammingError:
 		print("[E] Error on connecting to database")
@@ -145,15 +178,15 @@ def main():
 	if len(sys.argv) < 2:
 		print("[E] Usage: <host>")
 
-	config = load_config(CONFIG_FILE)
+	config = load_config(os.path.expanduser(CONFIG_FILE))
 
 	host = check_hostname(sys.argv[1])
-	fqdn = host + get_dns_search(config)
+	fqdn = host + '.' + config['SEARCH']
 
 	awake = ping(fqdn, 2)
 
 	if not awake:
-		mac = get_mac(config, host) # reads mac from file, if not, tries to get it from server
+		mac = get_mac(host, config['SQL']) # reads mac from file, if not, tries to get it from server
 		ip  = socket.gethostbyname(fqdn)
 		print(f"Sending WOL to {fqdn} ({ip} -- {mac})")
 		send_wol_packet(ip, mac)
