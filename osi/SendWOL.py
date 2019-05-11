@@ -134,10 +134,6 @@ def get_mac(host, server, cachefile):
 	return cache[host]
 
 
-def get_dns_search(file):
-	return '.gempi.re'
-
-
 def ping(host, wait):
 	reply = subprocess.run(['ping', '-c', '1', f"-w{wait}", host], stdout=subprocess.DEVNULL, stderr=subprocess.STDOUT).returncode
 	return reply == 0
@@ -158,9 +154,11 @@ def check_hostname(hostname):
 	raise ValueError('Inalid hostname')
 
 
-def send_and_wait(fqdn, ip, mac, max_wait = 15):
-	brcst = ip[0 : ip.rfind('.')] + '.255'
+def get_broadcast(ip):
+	return ip[0 : ip.rfind('.')] + '.255'
 
+
+def send_and_wait(fqdn, ip, mac, wol_sender = send_wol_packet, max_wait = 15):
 	awake = False
 	wait = 1
 	while not awake:
@@ -169,8 +167,7 @@ def send_and_wait(fqdn, ip, mac, max_wait = 15):
 		if wait > max_wait:
 			return awake
 
-		broadcast_wol_packet(brcst, mac)
-		send_wol_packet(ip, mac)
+		wol_sender(ip, mac)
 
 		print(f"Sent WOL (waiting: {wait}sec)")
 		awake = ping(fqdn, wait)
@@ -187,20 +184,16 @@ def main():
 	host = check_hostname(sys.argv[1]).lower()
 	fqdn = host + '.' + config['SEARCH']
 
-	awake = ping(fqdn, 2)
-
-	if not awake:
+	if not ping(fqdn, 2):
 		mac = get_mac(host, config['SQL'], os.path.expanduser(CACHE_FILE))
 		ip  = socket.gethostbyname(fqdn)
 		print(f"Sending WOL to {fqdn} ({ip} -- {mac})")
-		send_wol_packet(ip, mac)
 
-		awake = send_and_wait(fqdn, ip, mac)
-
-	if awake:
-		print(f"{fqdn} is awake")
-	else:
-		print(f"Failed to wake {fqdn}")
+		if not send_and_wait(fqdn, ip, mac, send_wol_packet):
+			if not send_and_wait(fqdn, get_broadcast(ip), mac, broadcast_wol_packet):
+				print(f"Failed to wake {fqdn}")
+				return
+	print(f"{fqdn} is awake")
 
 
 if __name__ == "__main__":
