@@ -49,38 +49,28 @@ def check_sql_svr(host):
 		return sock.connect_ex((host, 3306)) == 0
 
 
-def read_config(filename):
+def read_dict(filename):
 	config = {}
 	with open(filename, 'r') as file:
 		for line in file:
 			key, value = line.split('::', 2)
-			config[key.strip().upper()] = value.strip()
+			config[key.strip()] = value.strip()
 	return config
 
 
-def write_config(filename, config):
+def write_dict(filename, config):
 	with open(filename, "w") as file:
-		file.write('DATE::')
-		file.write(config['DATE'])
-		file.write('\n')
-
-		file.write('SQL::')
-		file.write(config['SQL']) # f"{reply['USER']}@{reply['HOST']}/{db}"
-		file.write('\n')
-
-		file.write('SEARCH::') # reply['HOST'][reply['HOST'].find('.'):]
-		file.write(config['SEARCH']) # strip the hostname, and just keep the domain name
-		file.write('\n')
+		for key in config.keys():
+			file.write(f'{key}::{config[key]}\n')
 
 
 def needs_update(date):
-	print(date)
 	next_update = datetime.strptime(date, '%Y-%m-%d %H:%M:%S')
 	now = datetime.now()
 	return next_update > now
 
 
-def load_config(filename, config=None):
+def load_config(filename):
 	""" Loads a config file, creating one if none exists, updating it if its outdated
 
 		Format:
@@ -99,16 +89,16 @@ def load_config(filename, config=None):
 		reply = get_discovery_response('DNS_SEARCH')
 		config['SEARCH'] = reply['RP']
 
-		write_config(filename, config)
+		write_dict(filename, config)
 	else:
-		config = read_config(filename)
+		config = read_dict(filename)
 		if needs_update(config['DATE']):
 			config['DATE'] = str(datetime.now() + datetime.timedelta(days=30))
-			write_config(filename, config)
+			write_dict(filename, config)
 	return config
 
 
-def get_mac(host, server):
+def get_mac_from_sql(host, server):
 	svr = uri_parse(server)
 	db = None
 	try:
@@ -129,6 +119,19 @@ def get_mac(host, server):
 		raise SystemExit()
 
 	return result[0][0]
+
+
+def get_mac(host, server, cachefile):
+	cache = {}
+	if not os.path.exists(cachefile):
+		cache[host] = get_mac_from_sql(host, server)
+		write_dict(cachefile, cache)
+	else:
+		cache = read_dict(cachefile)
+		if not host in cache.keys():
+			cache[host] = get_mac_from_sql(host, server)
+			write_dict(cachefile, cache)
+	return cache[host]
 
 
 def get_dns_search(file):
@@ -177,16 +180,17 @@ def send_and_wait(fqdn, ip, mac, max_wait = 15):
 def main():
 	if len(sys.argv) < 2:
 		print("[E] Usage: <host>")
+		return
 
 	config = load_config(os.path.expanduser(CONFIG_FILE))
 
-	host = check_hostname(sys.argv[1])
+	host = check_hostname(sys.argv[1]).lower()
 	fqdn = host + '.' + config['SEARCH']
 
 	awake = ping(fqdn, 2)
 
 	if not awake:
-		mac = get_mac(host, config['SQL']) # reads mac from file, if not, tries to get it from server
+		mac = get_mac(host, config['SQL'], os.path.expanduser(CACHE_FILE))
 		ip  = socket.gethostbyname(fqdn)
 		print(f"Sending WOL to {fqdn} ({ip} -- {mac})")
 		send_wol_packet(ip, mac)
