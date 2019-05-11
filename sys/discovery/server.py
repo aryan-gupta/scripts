@@ -39,7 +39,7 @@ def get_reply(msg, addr):
 	elif request == 'SM_SMB':
 		reply = '\r\n'.join(['IP:192.168.0.5', 'PORT:445', '', ''])
 	elif request == 'SQL':
-		reply = '\r\n'.join(['IP:192.168.0.3', 'PORT:3306', '', ''])
+		reply = '\r\n'.join(['HOST:higgs.gempi.re', 'IP:192.168.0.3', 'PORT:3306', 'USER:local', '', ''])
 	else:
 		reply = '\r\n'.join(['RP:INVALID', '', ''])
 		response = 'INVALID'
