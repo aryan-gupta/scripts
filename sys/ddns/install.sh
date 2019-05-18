@@ -17,8 +17,8 @@ error() {
 }
 
 # Check root
-if [[ $EUID -eq 0 ]]; then
-	error "This script should not be run using sudo or as the root user"
+if [[ $EUID -ne 0 ]]; then
+	error "This script should be run using sudo or as the root user"
 	exit 1
 fi
 
