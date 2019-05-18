@@ -3,7 +3,7 @@
 PWD=$(pwd)
 
 CRED_FILE="cred.txt"
-CRED_FINAL_LOC="/etc/ddns"
+CRED_FINAL_LOC="/etc/ddnsupdater"
 
 SYSTEMD_SERVICE_FILE="ddns.service"
 SYSTEMD_LIB_LOC="/usr/lib/systemd/system"
