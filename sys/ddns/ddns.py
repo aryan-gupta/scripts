@@ -8,10 +8,11 @@ import signal
 
 
 CRED_FILE = sys.argv[1] if len(sys.argv) >= 2 else 'cred.txt'
+IP_FILE = sys.argv[2] if len(sys.argv) >= 3 else '/tmp/ddns_ip.txt'
+
 WAIT_TIME = 5.0
 IP_CHECK_URL = 'https://domains.google.com/checkip'
 IP_UPDATE_URL = 'https://domains.google.com/nic/update?hostname={host}'
-IP_FILE = '/tmp/ddns_ip.txt'
 
 
 def get_ip():

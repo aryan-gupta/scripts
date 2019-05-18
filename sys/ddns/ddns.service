@@ -4,7 +4,7 @@ After=network.target
 
 [Service]
 Type=simple
-ExecStart=/bin/env python /bin/ddnsupdater /etc/ddnsupdater/cred.txt
+ExecStart=/bin/env python /bin/ddnsupdater /etc/ddnsupdater/cred.txt /tmp/ddns_ip.txt
 
 [Install]
 WantedBy=multi-user.target
