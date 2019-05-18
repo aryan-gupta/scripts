@@ -1,0 +1,8 @@
+[Unit]
+Description=Run ddns.service regularly to update ddns to dynamic IP
+
+[Timer]
+OnCalendar=*:0/5
+
+[Install]
+WantedBy=multi-user.target

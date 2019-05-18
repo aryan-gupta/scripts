@@ -1,0 +1,10 @@
+[Unit]
+Description=Update Dynamic IP
+
+[Service]
+Type=simple
+# ExecStart=/usr/bin/curl 'https://USER:PASS@domains.google.com/nic/update?hostname=HOST' --silent > /tmp/ddns_ip.txt
+ExecStart=/bin/ddns.sh
+
+[Install]
+WantedBy=multi-user.target
