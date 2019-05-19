@@ -12,11 +12,9 @@ HEADER = '{protocol} {{response}} {version}\r\n'
 def parse(msg):
 	retval = {}
 	lines = msg.upper().split('\r\n')
-	lines = lines[1:] # the first one is the header
+	lines = lines[1:-2] # the first one is the header
 
 	for line in lines:
-		if line.find(':') == -1: continue
-
 		key, value = line.split(':', 1)
 		retval[key] = value
 
