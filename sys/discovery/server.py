@@ -4,10 +4,10 @@ import socket
 from threading import Thread, Event
 import signal
 import sys
+import json
 
-PROTOCOL = 'TGED'
-VERSION = '1.0'
-PORT = 4745
+SERVICES_FILE = sys.argv[1] if len(sys.argv) >= 2 else 'services.json'
+HEADER = '{protocol} {{response}} {version}\r\n'
 
 def parse(msg):
 	retval = {}
@@ -17,68 +17,67 @@ def parse(msg):
 	for line in lines:
 		if line.find(':') == -1: continue
 
-		key, value = line.split(':', 2)
+		key, value = line.split(':', 1)
 		retval[key] = value
 
 	return retval
 
 
-def get_reply(msg, addr):
+def dict_str(as_dict):
+	as_list = [ f'{key}:{as_dict[key]}' for key in as_dict.keys() ]
+	as_list.extend(['', ''])
+	return '\r\n'.join(as_list)
+
+
+def get_reply(header, config, msg, addr):
 	msg = parse(msg)
-	response = 'REPLY'
-	reply = None
-	request = msg['RQ']
-	if request == 'CONTROL':
-		reply = '\r\n'.join(['IP:192.168.0.3', f"PORT:{PORT}", '', ''])
-	elif request == 'DNS_SEARCH':
-		reply = '\r\n'.join(['RP:gempi.re', '', ''])
-	elif request == 'DNS':
-		reply = '\r\n'.join(['IP:192.168.0.3', 'PORT:53', '', ''])
-	elif request == 'LG_SMB':
-		reply = '\r\n'.join(['IP:192.168.0.5', 'PORT:445', '', ''])
-	elif request == 'SM_SMB':
-		reply = '\r\n'.join(['IP:192.168.0.5', 'PORT:445', '', ''])
-	elif request == 'SQL':
-		reply = '\r\n'.join(['HOST:higgs.gempi.re', 'IP:192.168.0.3', 'PORT:3306', 'USER:local', '', ''])
-	else:
-		reply = '\r\n'.join(['RP:INVALID', '', ''])
-		response = 'INVALID'
-
-	header = f'{PROTOCOL} {response} {VERSION}\r\n'
-	return header + reply
+	request = msg['RQ'] if 'RQ' in msg.keys() and msg['RQ'] in config.keys() else 'INVALID'
+	response = 'INVALID' if request == 'INVALID' else 'REPLY'
+	reply = dict_str(config[request])
+	return header.format(response=response) + reply
 
 
-def udp_server_work(kill):
+def udp_server_work(port, protocol, kill, config, version):
 	with socket.socket(socket.AF_INET, socket.SOCK_DGRAM) as sock:
 		sock.settimeout(2)
-		sock.bind(('0.0.0.0', PORT))
+		sock.bind(('0.0.0.0', port))
 
 		while not kill.is_set():
-			message, address = None, None
 			try:
-				message, address = sock.recvfrom(1024)
+				message, address = sock.recvfrom(4096)
 			except socket.timeout:
 				continue
 
 			message = message.decode()
 
-			protocol = message.split()[0]
-			if protocol != PROTOCOL:
-				continue
+			if message.split()[0] != protocol: continue # discard packet if not our protocol
 
-			reply = get_reply(message, address)
+			header = HEADER.format(protocol=protocol, version=version)
+			reply = get_reply(header, config, message, address)
 			sock.sendto(reply.encode(), address)
 
-def tcp_server_work(kill):
+
+def tcp_server_work(port, protocol, kill, config, version):
 	pass
 
+
+def load_config(filename):
+	with open(filename, 'r') as file:
+		return json.load(file)
+
+
 def main():
+	config = load_config(SERVICES_FILE)
+	protocol = config['DISCOVERY']['PROTOCOL']
+	port = config['DISCOVERY']['PORT']
+	version = config['DISCOVERY']['VERSION']
+
 	kill = Event()
 
-	udp_thread = Thread(target=udp_server_work, args=(kill, ))
+	udp_thread = Thread(target=udp_server_work, args=(port, protocol, kill, config, version))
 	udp_thread.start()
 
-	tcp_thread = Thread(target=tcp_server_work, args=(kill, ))
+	tcp_thread = Thread(target=tcp_server_work, args=(port, protocol, kill, config, version))
 	tcp_thread.start()
 
 	def sig_handler(sig, frame):
