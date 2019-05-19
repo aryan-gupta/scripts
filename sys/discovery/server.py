@@ -6,6 +6,8 @@ import signal
 import sys
 import json
 
+from mpp import send_message, read_message
+
 SERVICES_FILE = sys.argv[1] if len(sys.argv) >= 2 else 'services.json'
 HEADER = '{protocol} {{response}} {version}\r\n'
 
@@ -56,7 +58,22 @@ def udp_server_work(port, protocol, kill, config, version):
 
 
 def tcp_server_work(port, protocol, kill, config, version):
-	pass
+	with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as sock:
+		sock.settimeout(2)
+		sock.bind(('0.0.0.0', port))
+		sock.listen()
+
+		while not kill.is_set():
+			try:
+				connection, address = sock.accept()
+			except socket.timeout:
+				continue
+
+			message = read_message(connection).decode()
+
+			header = HEADER.format(protocol=protocol, version=version)
+			reply = get_reply(header, config, message, address)
+			send_message(connection, reply.encode())
 
 
 def load_config(filename):
