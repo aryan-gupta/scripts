@@ -1,5 +1,5 @@
 [Unit]
-Description=Start the TGED protocol daemon. Will reply to discovery requests for various protocols.
+Description=Start the TGED protocol daemon
 After=network.target
 StartLimitIntervalSec=0
 
@@ -7,7 +7,7 @@ StartLimitIntervalSec=0
 Type=simple
 Restart=always
 RestartSec=1
-ExecStart=/usr/bin/env python /bin/tgediscovery
+ExecStart=/usr/bin/env python /bin/tgediscovery /etc/tgediscovery/services.json
 
 [Install]
 WantedBy=multi-user.target
