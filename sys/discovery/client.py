@@ -28,7 +28,9 @@ def get_discovery_response(service):
 		return reply
 
 def main():
-	print(get_discovery_response('CONTROL'))
+	print(get_discovery_response('DISCOVERY'))
+	print(get_discovery_response('SQL'))
+	print(get_discovery_response('lkjlk'))
 
 if __name__ == "__main__":
 	main()
