@@ -36,7 +36,7 @@ def add_location(db, hostname, src, dest):
 	print(f"[I] {s} `{src}' to list of backup locations")
 
 	q = f"""INSERT INTO {hostname} (type, src, dest) VALUES (
-		"{butype}"
+		"{butype}",
 		"{src}",
 		"{dest}"
 	);"""

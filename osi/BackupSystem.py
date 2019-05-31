@@ -13,6 +13,7 @@ import paramiko
 SQL = "mysql://local@higgs.gempi.re/backup"
 BU_SVR = 'ssh://stick@higgs.gempi.re'
 BU_ROOT = '/run/sdcard/backups'
+BU_FFMT = '%Y%m%d-%H%M'
 
 def get_ssh_connection(svr):
 	client = paramiko.SSHClient()
@@ -67,39 +68,53 @@ def get_backup_locations(db, hostname):
 
 def run_copy(client, src, dest):
 	cmd = f"cp -al {src} {dest}"
-	print(cmd)
-	return client.exec_command(cmd)
+	stdin, stdout, stderr = client.exec_command(cmd)
+	print(stdout.read())
+	print(stderr.read())
+	return stdin, stdout, stderr
+
+def create_folder(client, src, dest):
+	if os.path.isdir(src):
+		dir_name = dest
+	else:
+		dir_name = os.path.dirname(dest)
+	cmd = f"mkdir -p {dir_name}"
+	client.exec_command(cmd)
 
 def run_rsync(src, dest, excludes):
+	if os.path.isdir(src): src = src + '/'
+
 	cmd = ['rsync', '-vaiS', '--delay-updates', '--delete', 'src', 'dest', f'--log-file=/var/test.txt']
 	for exc in excludes:
 		cmd.append(f'--exclude={exc}')
-	cmd[4] = src + '/'
+	cmd[4] = src
 	cmd[5] = dest
-	print(' '.join(cmd))
-	return
+
 	subprocess.run(cmd, capture_output=True)
 
 def get_last_backup(client, root):
 	cmd = f"ls {root}"
-	print(cmd)
-	return
 	_, stdout, _ = client.exec_command(cmd)
-	folders = stdout.split(' ')
-	last = folders[len(folders) - 1]
-	return datetime.strptime(last, '%Y%m%d-%H%M') if len(folders) > 0 else None
+	folders = stdout.read().decode().strip().split()
+	if len(folders) >= 1 and folders[0] != '':
+		last = folders[len(folders) - 1]
+		return datetime.strptime(last, BU_FFMT)
+	else:
+		return None
 
 def backup_files(locs): # locs are a 3-tuple of src, dest, and excludes
 	root = os.path.join(BU_ROOT, gethostname())
 	client = get_ssh_connection(BU_SVR)
 	last_bu = get_last_backup(client, root)
-	date = datetime.strftime(datetime.now(), '%Y%m%d-%H%M')
+	date = datetime.strftime(datetime.now(), BU_FFMT)
 
 	if last_bu is None:
 		for loc in locs:
-			run_rsync(loc[0], os.path.join(root, date, loc[1][1:]), [])
+			dest = os.path.join(root, date, loc[1][1:])
+			create_folder(client, loc[0], dest)
+			run_rsync(loc[0], dest, [])
 	else:
-		last = os.path.join(root, last_bu)
+		last = os.path.join(root, datetime.strftime(last_bu, BU_FFMT))
 		new = os.path.join(root, date)
 		run_copy(client, last, new)
 		for loc in locs:
