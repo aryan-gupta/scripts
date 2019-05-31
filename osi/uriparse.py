@@ -11,7 +11,7 @@ def resloc_parse(uri):
 	return user, passwd, host, port
 
 def tail_parse(uri):
-	start, end = (len(uri), len(uri)) 
+	start, end = (len(uri), len(uri))
 
 	# Start parsing in the reverse direction
 
@@ -37,9 +37,9 @@ def uri_parse(uri):
 
 	end = uri.find("://", start)
 	scheme, start = ("", start) if end == -1 else (uri[start:end], end + 3)
-	
+
 	end = uri.find("/", start)
-	resloc, start = ("", start) if end == -1 else (uri[start:end], end)
+	resloc, start = (uri[start:], len(uri)) if end == -1 else (uri[start:end], end)
 
 	user, passwd, host, port = resloc_parse(resloc)
 	path, param, query, frag = tail_parse(uri[start:])
