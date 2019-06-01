@@ -33,9 +33,9 @@ def get_ssh_connection(svr):
 	client.set_missing_host_key_policy(paramiko.client.AutoAddPolicy)
 
 	client.connect(
-		hostname=config['hostname'] if 'user' in config.keys() else 'higgs.gempi.re',
-		username=config['user'] if 'user' in config.keys() else 'stick',
-		port=config['port'] if 'port' in config.keys() else 22,
+		hostname=config['hostname'] if 'user' in config.keys() else server.host,
+		username=config['user'] if 'user' in config.keys() else server.user,
+		port=config['port'] if 'port' in config.keys() else 22
 	)
 
 	return client
