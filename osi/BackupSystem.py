@@ -36,7 +36,6 @@ def get_ssh_connection(svr):
 		hostname=config['hostname'] if 'user' in config.keys() else 'higgs.gempi.re',
 		username=config['user'] if 'user' in config.keys() else 'stick',
 		port=config['port'] if 'port' in config.keys() else 22,
-		password='***REMOVED***'
 	)
 
 	return client
