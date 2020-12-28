@@ -1,3 +1,6 @@
 [submodule "nix/linux.files"]
 	path = nix/linux.files
 	url = https://github.com/aryan-gupta/linux.files
+[submodule "nix/ansible-linux"]
+	path = nix/ansible-linux
+	url = https://github.com/aryan-gupta/ansible-linux
