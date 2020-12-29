@@ -1,0 +1,1 @@
+cd ~/Projects/scripts/nix/game_mode && sudo ./exit_game_mode.sh ; popd
