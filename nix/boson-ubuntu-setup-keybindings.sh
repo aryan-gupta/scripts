@@ -3,9 +3,11 @@
 # https://techwiser.com/custom-keyboard-shortcuts-ubuntu/
 # https://github.com/UbuntuBudgie/budgie-xfdashboard/blob/master/usr/share/budgie-remix/define-custom-keyboard-shortcut.py
 
+gsettings set org.gnome.desktop.wm.keybindings close "['<Super>w']"
+
 function set_custom_keybinds() {
     gsettings set org.gnome.settings-daemon.plugins.media-keys custom-keybindings "[
-        '/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/'
+          '/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/'
         , '/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1/'
         , '/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom2/'
     ]"
