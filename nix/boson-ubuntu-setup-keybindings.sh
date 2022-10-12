@@ -10,6 +10,7 @@ function set_custom_keybinds() {
           '/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/'
         , '/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1/'
         , '/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom2/'
+        , '/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom3/'
     ]"
 }
 
@@ -28,5 +29,15 @@ gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/or
 gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom2/ binding "'<Alt>f'"
 gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom2/ command "'/bin/nautilus'"
 
+# https://askubuntu.com/questions/1036473
+# gsettings list-recursively | grep screen
+gsettings set org.gnome.shell.keybindings screenshot '[]'
+gsettings set org.gnome.shell.keybindings screenshot-window '[]'
+gsettings set org.gnome.shell.keybindings show-screen-recording-ui '[]'
+gsettings set org.gnome.shell.keybindings show-screenshot-ui '[]'
+set_custom_keybinds
+gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom3/ name "'screenshot_ui'"
+gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom3/ binding "'Print'"
+gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom3/ command "'/bin/flameshot gui'"
 
 gsettings get org.gnome.settings-daemon.plugins.media-keys custom-keybindings
