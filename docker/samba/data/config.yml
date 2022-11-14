@@ -1,0 +1,50 @@
+auth:
+  - user: aryan
+    group: aryan
+    uid: 1000
+    gid: 1000
+    password_file: /run/secrets/aryan_password
+
+global:
+  - "force user = aryan"
+  - "force group = aryan"
+
+share:
+  - name: public
+    comment: Public
+    path: /samba/public
+    browsable: yes
+    readonly: yes
+    guestok: yes
+    veto: no
+    recycle: yes
+
+  - name: nas
+    comment: NAS data (lepton)
+    path: /samba/nas
+    browsable: yes
+    readonly: no
+    validusers: aryan
+    writelist: aryan
+    veto: no
+    recycle: yes
+
+  - name: root
+    path: /samba/root
+    browsable: yes
+    readonly: no
+    guestok: no
+    validusers: aryan
+    writelist: aryan
+    veto: no
+    recycle: no
+      # hidefiles: /_*/
+
+      #  - name: foo-baz
+      # path: /samba/foo-baz
+      #browsable: yes
+      #readonly: no
+      #guestok: no
+      #validusers: foo,baz
+      #writelist: foo,baz
+      #veto: no

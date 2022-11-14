@@ -1,0 +1,22 @@
+version: "3.5"
+
+services:
+  samba:
+    image: crazymax/samba
+    container_name: samba
+    network_mode: host
+    volumes:
+      - "./data:/data"
+      - "/public:/samba/public"
+      - "/nas:/samba/nas"
+      - "/:/samba/root"
+    environment:
+      - "TZ=America/New_York"
+      - "SAMBA_LOG_LEVEL=0"
+    restart: always
+    secrets:
+      - aryan_password
+
+secrets:
+  aryan_password:
+    file: ./aryan_password.txt
