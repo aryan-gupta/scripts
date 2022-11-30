@@ -5,6 +5,8 @@ services:
     container_name: dnsmasq
     restart: unless-stopped
     network_mode: "host"
+    ports:
+      - "53:53"
     cap_add:
       - NET_ADMIN
     environment:
@@ -16,6 +18,6 @@ services:
     volumes:
       - ./dnsmasq.conf:/etc/dnsmasq.conf
       - ./self_dnsmasq_addn_hosts:/etc/self_dnsmasq_addn_hosts
-      - ./static-hosts.conf:/etc/static-hosts.conf  
+      - ./static-hosts.conf:/etc/static-hosts.conf
     # - ./dnsmasq.log:/var/log/dnsmasq.log
       - /etc/localtime:/etc/localtime:ro
