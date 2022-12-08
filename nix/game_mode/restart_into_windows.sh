@@ -1,4 +1,4 @@
 #!/bin/bash
-num="$(efibootmgr | grep "Windows" | sed 's/* Windows Boot Manager//' | sed 's/Boot//')"
+num="$(efibootmgr | grep "Windows Boot Manager" | awk '{print $1}' | sed 's/Boot//' | sed 's/*//')"
 echo $num
 efibootmgr -n $num && systemctl reboot
